@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import ProfileIcon from '@/assets/svgs/profile.svg?react'
-// import TownHallIcon from '@/assets/svgs/townhall.svg?react'
+import TownHallIcon from '@/assets/svgs/townhall.svg?react'
 
 type MenuItem = {
   label: string
@@ -11,31 +11,11 @@ type MenuItem = {
 }
 
 const menuItems: MenuItem[] = [
-  // {
-  //   path: '/',
-  //   label: 'Scoreboard',
-  //   IconComponent: GraphIcon
-  // },
-  // {
-  //   path: '/townhall',
-  //   label: 'Town Hall',
-  //   IconComponent: TownHallIcon
-  // },
-  // {
-  //   path: '/sports',
-  //   label: 'Sport game',
-  //   IconComponent: SportIcon
-  // },
-  // {
-  //   path: '/activities',
-  //   label: 'Quiz',
-  //   IconComponent: ActivityIcon
-  // },
-  // {
-  //   path: '/lucky-draw',
-  //   label: 'Super Lotto',
-  //   IconComponent: DiceIcon
-  // },
+  {
+    path: '/townhall',
+    label: 'Town Hall',
+    IconComponent: TownHallIcon
+  },
   {
     path: '/profile',
     label: 'Profile',

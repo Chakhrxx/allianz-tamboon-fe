@@ -7,6 +7,9 @@ import ProfileLayout from './pages/(protected)/profile/layout'
 import ErrorPage from './pages/error'
 import { lazy } from 'react'
 import { loginLoader } from './pages/login/loader'
+import TownHallPage from './pages/(protected)/townhall'
+import TownHallLayout from './pages/(protected)/townhall/layout'
+import TownHallCameraPage from './pages/(protected)/townhall/camera'
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +35,20 @@ export const router = createBrowserRouter([
             ]
           },
           {
+            path: '/townhall',
+            element: <TownHallLayout />,
+            children: [
+              {
+                path: '',
+                element: <TownHallPage />
+              },
+              {
+                path: 'camera',
+                element: <TownHallCameraPage />
+              }
+            ]
+          },
+          {
             path: '/profile',
             element: <ProfileLayout />,
             children: [
@@ -50,7 +67,8 @@ export const router = createBrowserRouter([
       {
         path: '/login',
         loader: loginLoader,
-        element: <LoginPage />
+        element: <LoginPage />,
+        
       }
     ]
   }
