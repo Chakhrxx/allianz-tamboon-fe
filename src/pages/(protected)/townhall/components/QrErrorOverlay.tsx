@@ -1,24 +1,24 @@
-import Button from '@/components/Button'
-import XCircleIcon from '@/assets/svgs/x-circle.svg?react'
+import Button from "@/components/Button";
+import XCircleIcon from "@/assets/svgs/x-circle.svg?react";
 
 export type QrErrorOverlayState = {
-  show: boolean
-  title: string
-  message?: string
-}
+  show: boolean;
+  title: string;
+  message?: string;
+};
 
 type Props = {
-  show: boolean
-  title: string
-  message?: string
-  onBack: () => void
-}
+  show: boolean;
+  title: string;
+  message?: string;
+  onBack: () => void;
+};
 
 export default function QrErrorOverlay({
   show,
   title,
   message,
-  onBack
+  onBack,
 }: Props) {
   return (
     show && (
@@ -38,5 +38,5 @@ export default function QrErrorOverlay({
         </div>
       </div>
     )
-  )
+  );
 }
