@@ -1,40 +1,31 @@
-import TeamBadge from '@/components/TeamBadge'
-import { Team } from '@/constants/team'
-import { TeamUtil } from '@/utils/team'
-import classNames from 'classnames'
-import CameraIcon from '@/assets/svgs/camera.svg?react'
-import { useMemo, useRef } from 'react'
-import { CommonUtil } from '@/utils/common'
+import classNames from "classnames";
+import CameraIcon from "@/assets/svgs/camera.svg?react";
+import { useRef } from "react";
+import { CommonUtil } from "@/utils/common";
 
 type Props = {
-  team: Team
-  url?: string | null
-  containerClassName?: string
-  onFileUpload?: (file: File) => void
-}
+  url?: string | null;
+  containerClassName?: string;
+  onFileUpload?: (file: File) => void;
+};
 
-function Avatar({ team, url, containerClassName, onFileUpload }: Props) {
-  const teamColor = TeamUtil.getTeamColor(team)
-  const fileUploadRef = useRef<HTMLInputElement>(null)
+function Avatar({ url, containerClassName, onFileUpload }: Props) {
+  const fileUploadRef = useRef<HTMLInputElement>(null);
 
-  const openFileUpload = () => fileUploadRef.current?.click()
+  const openFileUpload = () => fileUploadRef.current?.click();
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const file = event.target.files?.[0]
-    if (!file) return
-    const resizedFile = await CommonUtil.resizeImage(file)
-    onFileUpload?.(resizedFile)
-  }
-
-  const PlaceholderIcon = useMemo(() => {
-    return TeamUtil.getBarTrackRunnerIconByTeam(team)
-  }, [team])
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const resizedFile = await CommonUtil.resizeImage(file);
+    onFileUpload?.(resizedFile);
+  };
 
   return (
     <div
-      className={classNames('relative w-fit', containerClassName)}
+      className={classNames("relative w-fit", containerClassName)}
       onClick={openFileUpload}
     >
       <input
@@ -45,10 +36,7 @@ function Avatar({ team, url, containerClassName, onFileUpload }: Props) {
       />
 
       {url ? (
-        <div
-          className="w-20 h-20 border-4 rounded-full overflow-hidden"
-          style={{ borderColor: teamColor }}
-        >
+        <div className="w-20 h-20 border-4 rounded-full overflow-hidden">
           <img
             className="w-full h-full object-cover"
             src={url}
@@ -58,21 +46,17 @@ function Avatar({ team, url, containerClassName, onFileUpload }: Props) {
       ) : (
         <div
           className={classNames(
-            'w-20 h-20 border-4 rounded-full flex justify-center items-center',
+            "w-20 h-20 border-4 rounded-full flex justify-center items-center",
             {
-              'bg-white': !url
+              "bg-white": !url,
             }
           )}
-          style={{ borderColor: teamColor }}
-        >
-          {PlaceholderIcon && <PlaceholderIcon className="scale-125" />}
-        </div>
+        ></div>
       )}
 
       <CameraIcon className="absolute bottom-4 right-0 z-10" />
-      <TeamBadge className="-mt-3 !w-16 mx-auto" team={team} />
     </div>
-  )
+  );
 }
 
-export default Avatar
+export default Avatar;
