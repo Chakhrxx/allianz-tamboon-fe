@@ -10,7 +10,6 @@ import { loginLoader } from "./pages/login/loader";
 import TownHallPage from "./pages/(protected)/townhall";
 import TownHallLayout from "./pages/(protected)/townhall/layout";
 import TownHallCameraPage from "./pages/(protected)/townhall/camera";
-import CSRLayout from "./pages/(protected)/csr/layout";
 
 export const router = createBrowserRouter([
   {
@@ -35,20 +34,6 @@ export const router = createBrowserRouter([
               // },
             ],
           },
-          // {
-          //   path: "/csr",
-          //   element: <CSRLayout />,
-          //   children: [
-          //     {
-          //       path: "",
-          //       Component: lazy(() => import("./pages/(protected)/csr")),
-          //     },
-          //     {
-          //       path: "scanQR",
-          //       Component: lazy(() => import("./pages/(protected)/csr/qr")),
-          //     },
-          //   ],
-          // },
           {
             path: "/qrcode",
             element: <TownHallLayout />,
