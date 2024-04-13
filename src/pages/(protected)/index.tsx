@@ -1,66 +1,66 @@
-import BarTrack from '@/components/BarTrack'
-import Goal from '@/assets/images/goal.png'
-import { Team } from '@/constants/team'
-import TeamBadge from '@/components/TeamBadge'
-import CoinSummary from '@/components/CoinSummary'
-import PageTitle from '@/components/PageTitle'
-import LiveIcon from '@/assets/svgs/live.svg?react'
-import { Link } from 'react-router-dom'
-import BgCircleImage from '@/assets/images/bg-circle.png'
-import Logo from '@/assets/images/logo.png'
+import BarTrack from "@/components/BarTrack";
+import Goal from "@/assets/images/goal.png";
+import { Team } from "@/constants/team";
+import TeamBadge from "@/components/TeamBadge";
+import CoinSummary from "@/components/CoinSummary";
+import PageTitle from "@/components/PageTitle";
+import LiveIcon from "@/assets/svgs/live.svg?react";
+import { Link } from "react-router-dom";
+import BgCircleImage from "@/assets/images/bg-circle.png";
+import Logo from "@/assets/images/logo.png";
 
-import { useQuery } from 'react-query'
-import { gameService } from '@/services/game'
-import GameIcon from '@/components/GameIcon'
-import { useMemo } from 'react'
-import { useActivityState } from '@/hooks/useActivityState'
-import Banner from '@/components/Banner'
+import { useQuery } from "react-query";
+import { gameService } from "@/services/game";
+import GameIcon from "@/components/GameIcon";
+import { useMemo } from "react";
+import { useActivityState } from "@/hooks/useActivityState";
+import Banner from "@/components/Banner";
 
-const iconSize = { width: 20, height: 20 }
-const MAX_SCORE = 10000
+const iconSize = { width: 20, height: 20 };
+const MAX_SCORE = 10000;
 
 function HomePage() {
   const { isActivityEnabled } = useActivityState({
-    collectionId: 'showActivityScore'
-  })
+    collectionId: "showActivityScore",
+  });
   const { data: teamRankGameScores } = useQuery(
-    'team-rank-game-scores',
+    "team-rank-game-scores",
     gameService.getAllTeamRankGameScore
-  )
+  );
 
   const { data: teamRankScores } = useQuery(
-    'team-rank-scores',
+    "team-rank-scores",
     gameService.getAllTeamRankScore
-  )
+  );
 
   const sortedTeamRankScores = useMemo(() => {
-    if (!teamRankScores) return []
+    if (!teamRankScores) return [];
     const sortedTeamRankScores = [...teamRankScores].sort(
       (a, b) => b.totalScore - a.totalScore
-    )
-    return sortedTeamRankScores
-  }, [teamRankScores])
+    );
+    return sortedTeamRankScores;
+  }, [teamRankScores]);
 
   const getRanking = (teamId: Team) => {
     const idx = sortedTeamRankScores.findIndex(
       (teamRankScore) => teamRankScore.teamId === teamId
-    )
-    return idx + 1
-  }
+    );
+    return idx + 1;
+  };
 
   return (
     <>
       <Banner />
       <div className="relative min-h-screen">
         <div className="relative z-10">
-          {isActivityEnabled('live') && (
+          {isActivityEnabled("live") && (
             <Link className="block text-right pt-4 pr-4 -mb-8" to="/live">
               <LiveIcon className="inline-block" />
             </Link>
           )}
 
           <PageTitle className="pl-3">Scoreboard</PageTitle>
-          {!isActivityEnabled('FollowLive') ? (
+          {!isActivityEnabled("FollowLive") ? (
             <div className="flex">
               <ul className="[&>*:last-child]:border-b-2 w-full">
                 {teamRankScores?.map((teamRankScore) => (
@@ -87,7 +87,7 @@ function HomePage() {
           )}
 
           <div className="p-4 space-y-4">
-            {!isActivityEnabled('FollowLive') && (
+            {!isActivityEnabled("FollowLive") && (
               <div className="flex justify-between items-center gap-4">
                 <TeamBadge team={Team.BLUE} />
                 <TeamBadge team={Team.YELLOW} />
@@ -125,7 +125,7 @@ function HomePage() {
         />
       </div>
     </>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

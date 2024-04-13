@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import ProfileIcon from "@/assets/svgs/profile.svg?react";
-// import TownHallIcon from '@/assets/svgs/townhall.svg?react'
+// import TownHallIcon from "@/assets/svgs/townhall.svg?react";
 
 type MenuItem = {
   label: string;
@@ -12,12 +12,12 @@ type MenuItem = {
 
 const menuItems: MenuItem[] = [
   // {
-  //   path: '/townhall',
-  //   label: 'Town Hall',
-  //   IconComponent: TownHallIcon
+  //   path: "/csr",
+  //   label: "QR",
+  //   IconComponent: TownHallIcon,
   // },
   {
-    path: "/profile",
+    path: "/",
     label: "Profile",
     IconComponent: ProfileIcon,
   },

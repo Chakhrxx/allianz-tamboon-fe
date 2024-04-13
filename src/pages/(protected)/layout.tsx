@@ -1,7 +1,7 @@
-import MenuBar from '@/components/MenuBar'
-import { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
-import LoadingScreen from './loading'
+import MenuBar from "@/components/MenuBar";
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import LoadingScreen from "./loading";
 
 function ProtectedLayout() {
   return (
@@ -13,7 +13,7 @@ function ProtectedLayout() {
         <MenuBar />
       </div>
     </Suspense>
-  )
+  );
 }
 
-export default ProtectedLayout
+export default ProtectedLayout;
