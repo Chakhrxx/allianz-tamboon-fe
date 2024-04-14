@@ -28,10 +28,10 @@ export const router = createBrowserRouter([
                 path: "",
                 Component: lazy(() => import("./pages/(protected)/profile")),
               },
-              // {
-              //   path: "qr",
-              //   Component: lazy(() => import("./pages/(protected)/profile/qr")),
-              // },
+              {
+                path: "qr",
+                Component: lazy(() => import("./pages/(protected)/profile/qr")),
+              },
             ],
           },
           {

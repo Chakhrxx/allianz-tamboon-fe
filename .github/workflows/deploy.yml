@@ -34,7 +34,7 @@ jobs:
 
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_DOMAIN }} 'bash -s' << EOF
             cd ~/app
-            echo "${{ secrets.ENV_CONTENT }}" > .env
+            cat "${{ secrets.ENV_CONTENT }}" >> .env
             if pm2 list | grep -q "merit_app"; then
               pm2 restart merit_app
             else
