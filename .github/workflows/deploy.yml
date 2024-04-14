@@ -35,9 +35,9 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_DOMAIN }} 'bash -s' << EOF
             cd ~/api
             echo "${{ secrets.ENV_CONTENT }}" > .env
-            if pm2 list | grep -q "api_merit_2024"; then
-              pm2 restart api_merit_2024
+            if pm2 list | grep -q "merit_app"; then
+              pm2 restart merit_app
             else
-              pm2 start dist/main.js --name api_merit_2024 -i max
+              pm2 start dist/main.js --name merit_app -i max
             fi
           EOF
