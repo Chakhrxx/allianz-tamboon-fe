@@ -38,6 +38,6 @@ jobs:
             if pm2 list | grep -q "merit_app"; then
               pm2 restart merit_app
             else
-              pm2 start dist/index.html --name merit_app -i max
+              pm2 serve dist 5173 --name merit_app -i max
             fi
           EOF

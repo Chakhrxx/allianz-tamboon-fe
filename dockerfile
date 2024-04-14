@@ -11,4 +11,4 @@ RUN bun install
 
 COPY . .
 
-CMD bun run dev
+CMD bun run start
