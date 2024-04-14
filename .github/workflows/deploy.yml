@@ -30,10 +30,10 @@ jobs:
 
       - name: 🗓️ Deploy to DigitalOcean
         run: |
-          rsync -azP --delete -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_DOMAIN }}:~/api
+          rsync -azP --delete -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_DOMAIN }}:~/app
 
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_DOMAIN }} 'bash -s' << EOF
-            cd ~/api
+            cd ~/app
             echo "${{ secrets.ENV_CONTENT }}" > .env
             if pm2 list | grep -q "merit_app"; then
               pm2 restart merit_app
