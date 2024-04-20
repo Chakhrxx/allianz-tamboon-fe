@@ -61,7 +61,7 @@ function Actives({ data }: Props) {
                   </button>
                   <button
                     className="bg-gray-700 text-white py-1 px-2 rounded-sm hover:bg-red-600"
-                    onClick={() => handleOpenModal(item)}
+                    // onClick={() => handleOpenModal(item)}
                   >
                     เข้าร่วม
                   </button>
@@ -72,11 +72,11 @@ function Actives({ data }: Props) {
                 isOpen={showActivesModal}
                 onClose={handleCloseModal}
               />
-              <JoinModal
+              {/* <JoinModal
                 data={selectedData}
                 isOpen={showActivesModal}
                 onClose={handleCloseModal}
-              />
+              /> */}
             </div>
           ))}
         </div>
