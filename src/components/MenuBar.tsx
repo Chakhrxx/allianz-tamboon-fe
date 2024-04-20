@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import ProfileIcon from "@/assets/svgs/profile.svg?react";
-// import TownHallIcon from "@/assets/svgs/townhall.svg?react";
+import TownHallIcon from "@/assets/svgs/townhall.svg?react";
+import HomeIcon from "@/assets/svgs/home.svg?react";
 
 type MenuItem = {
   label: string;
@@ -11,13 +12,23 @@ type MenuItem = {
 };
 
 const menuItems: MenuItem[] = [
+  {
+    path: "/",
+    label: "Home",
+    IconComponent: HomeIcon,
+  },
+  {
+    path: "/csr",
+    label: "Tam-boon",
+    IconComponent: TownHallIcon,
+  },
   // {
   //   path: "/csr",
-  //   label: "QR",
+  //   label: "Redream",
   //   IconComponent: TownHallIcon,
   // },
   {
-    path: "/",
+    path: "/profile",
     label: "Profile",
     IconComponent: ProfileIcon,
   },

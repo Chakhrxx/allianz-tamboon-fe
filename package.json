@@ -49,11 +49,13 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-mkcert": "^1.17.4",
-    "vite-plugin-svgr": "^4.2.0"
+    "vite-plugin-svgr": "^4.2.0",
+    "@types/bun": "latest"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/git-cz"
     }
-  }
+  },
+  "module": "index.ts"
 }

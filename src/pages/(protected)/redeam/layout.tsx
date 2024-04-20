@@ -1,49 +1,50 @@
-import Avatar from "./components/Avatar";
-import BgCircleImage from "@/assets/images/bg-circle.png";
+import Avatar from './components/Avatar'
+import BgCircleImage from '@/assets/images/bg-circle.png'
 
-import BxEdit from "@/assets/svgs/bx-edit.svg?react";
-import { Outlet, useNavigate } from "react-router-dom";
-import { useProfile } from "@/hooks/useProfile";
-import { profileService } from "@/services/profile";
-import { queryClient } from "@/libs/query-client";
-import ProfileSettingsModal from "./components/ProfileSettingModal";
-import { useState } from "react";
-import LogoutConfirmOverlay from "./components/LogoutConfirmOverlay";
-import Banner from "@/components/Banner";
+import BxEdit from '@/assets/svgs/bx-edit.svg?react'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { useProfile } from '@/hooks/useProfile'
+import { profileService } from '@/services/profile'
+import { queryClient } from '@/libs/query-client'
+import ProfileSettingsModal from './components/ProfileSettingModal'
+import { useState } from 'react'
+import LogoutConfirmOverlay from './components/LogoutConfirmOverlay'
+import Banner from '@/components/Banner'
 
 function ProfileLayout() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [showLogoutConfirmOverlay, setShowLogoutConfirmOverlay] =
-    useState(false);
+    useState(false)
   const [showProfileSettingsModal, setShowProfileSettingsModal] =
-    useState(false);
-  const { data: profile } = useProfile({ enabled: false });
+    useState(false)
+  const { data: profile } = useProfile()
 
   const logout = () => {
-    localStorage.removeItem("token");
-    queryClient.clear();
-    navigate("/login");
-  };
+    localStorage.removeItem('token')
+    queryClient.clear()
+    navigate('/login')
+  }
 
   const handleFileUpload = async (file: File) => {
-    await profileService.uploadProfileImage(file);
-    queryClient.invalidateQueries("profile");
-  };
+    await profileService.uploadProfileImage(file)
+    queryClient.invalidateQueries('profile')
+  }
 
-  if (!profile) return null;
+  if (!profile) return null
 
   return (
     <>
       <Banner />
       <div className="relative px-8 h-full">
-        <div className="relative z-10 flex items-center gap-4 ">
+        <div className="relative z-10 flex items-center gap-4">
           <Avatar
+            team={profile!.profile.teamId}
             url={profile?.profile.profileImgUrl}
             onFileUpload={handleFileUpload}
           />
           <div>
             <div className="font-bold text-xl">
-              {profile?.profile.displayName}{" "}
+              {profile?.profile.displayName}{' '}
               <BxEdit
                 className="inline-block"
                 onClick={() => setShowProfileSettingsModal(true)}
@@ -53,12 +54,11 @@ function ProfileLayout() {
           </div>
         </div>
         <button
-          className=" underline underline-offset-2 ml-4 my-3 z-10 relative text-sm"
+          className="relative underline underline-offset-2 ml-4 my-3 z-10"
           onClick={() => setShowLogoutConfirmOverlay(true)}
         >
           Logout
         </button>
-
         <Outlet />
         <img
           className="absolute left-0 -bottom-10 w-full"
@@ -76,7 +76,7 @@ function ProfileLayout() {
         onBack={() => setShowLogoutConfirmOverlay(false)}
       />
     </>
-  );
+  )
 }
 
-export default ProfileLayout;
+export default ProfileLayout

@@ -1,49 +1,28 @@
-import Coin from '@/components/Coin'
-
-import SportCoin from './components/SportCoin'
-import Button from '@/components/Button'
-// import QuizSummary from './components/QuizSummary'
-import { Link } from 'react-router-dom'
-import { useProfile } from '@/hooks/useProfile'
-import GameIcon from '@/components/GameIcon'
-import { useActivityState } from '@/hooks/useActivityState'
-import MachineGameSummary from './components/MachineGameSummary'
+import Coin from "@/components/Coin";
+import { useProfile } from "@/hooks/useProfile";
+import { useMemo } from "react";
+import QRCode from "react-qr-code";
 
 function ProfilePage() {
-  const { isActivityEnabled } = useActivityState({
-    collectionId: 'showActivityScore'
-  })
-  const { data: profile } = useProfile()
+  const { data: profile } = useProfile();
+
+  const qrValue = useMemo(() => {
+    return JSON.stringify({
+      id: profile?.profile.id,
+      displayName: profile?.profile.displayName,
+      username: profile?.profile.username,
+      branchId: profile?.profile.branchId,
+    });
+  }, [profile]);
 
   return (
-    <div className="relative z-10 text-center space-y-5 pb-10">
-      <Coin className="mx-auto w-28 h-28" points={profile?.coins} />
-      <div className="mx-auto max-w-80 space-y-2">
-        <div className="font-bold">Daily Sports Experience</div>
-        <div className="flex flex-wrap gap-2 justify-center">
-          {profile?.gameSummary.map(
-            ({ game, state }) =>
-              isActivityEnabled(game.firebaseCollectionName) && (
-                <SportCoin key={game.id} className="w-20 h-20" status={state}>
-                  <GameIcon game={game.id} width={40} height={40} />
-                </SportCoin>
-              )
-          )}
-        </div>
+    <div className="relative z-10 text-center space-y-5 pb-10 mt-5">
+      <div className="font-bold">Scan QR to play Sports Experience</div>
+      <div className="border-2 border-primary bg-white w-fit mx-auto p-5 rounded-xl">
+        <QRCode fgColor="#003781" value={qrValue} />
       </div>
-      {/* {isActivityEnabled('AllQuiz') && (
-        <QuizSummary data={profile?.quizSummary} />
-      )} */}
-      <div className="grid grid-cols-3">
-        {profile?.dailyGameSummary.map((data) => (
-          <MachineGameSummary key={data.game.id} data={data} />
-        ))}
-      </div>
-      <Link className="block" to="qr">
-        <Button className="w-full bg-opacity-90">MY QR</Button>
-      </Link>
     </div>
-  )
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;
