@@ -72,11 +72,11 @@ function Actives({ data }: Props) {
                 isOpen={showActivesModal}
                 onClose={handleCloseModal}
               />
-              {/* <JoinModal
+              <JoinModal
                 data={selectedData}
                 isOpen={showActivesModal}
                 onClose={handleCloseModal}
-              /> */}
+              />
             </div>
           ))}
         </div>
