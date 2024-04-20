@@ -1,4 +1,3 @@
-import Coin from "@/components/Coin";
 import { useProfile } from "@/hooks/useProfile";
 import { useMemo } from "react";
 import QRCode from "react-qr-code";
