@@ -21,12 +21,12 @@ const BaseModal: FC<ModalProps> = ({
   return (
     <div className={modalClasses}>
       <div
-        className="absolute inset-0 bg-[#003781] opacity-95"
+        className="absolute inset-0 bg-[#ECF4F6] opacity-95"
         onClick={onClose}
       ></div>
       <div
         className={classNames(
-          "bg-primary text-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto",
+          "bg-white w-11/12 md:max-w-md mx-auto rounded-xl shadow  shadow-[#7EA6F4]  z-50 overflow-y-auto",
           className
         )}
       >

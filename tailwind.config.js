@@ -1,17 +1,18 @@
-import tailwind3dTransforms from '@xpd/tailwind-3dtransforms'
+import tailwind3dTransforms from "@xpd/tailwind-3dtransforms";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{ts,tsx}'],
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        primary: '#003781'
+        primary: "#003781",
       },
       fontFamily: {
-        'allianz-neo': ['Allianz-Neo', 'sans-serif']
-      }
-    }
+        "allianz-neo": ["Allianz-Neo", "sans-serif"],
+        inter: ["Inter"],
+      },
+    },
   },
-  plugins: [tailwind3dTransforms]
-}
+  plugins: [tailwind3dTransforms],
+};

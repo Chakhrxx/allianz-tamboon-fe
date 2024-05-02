@@ -1,11 +1,11 @@
 import BgMainImage from "@/assets/svgs/Tambbon-bg-header.svg";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useProfile } from "@/hooks/useProfile";
-import { queryClient } from "@/libs/query-client";
-import { useState } from "react";
 import LogoutConfirmOverlay from "./components/LogoutConfirmOverlay";
+import { useProfile } from "@/hooks/useProfile";
+import { useState } from "react";
+import { queryClient } from "@/libs/query-client";
 
-function ProfileLayout() {
+function RedeemLayout() {
   const navigate = useNavigate();
   const [showLogoutConfirmOverlay, setShowLogoutConfirmOverlay] =
     useState(false);
@@ -18,7 +18,6 @@ function ProfileLayout() {
   };
 
   if (!profile) return null;
-
   return (
     <>
       <div className="relative">
@@ -36,7 +35,7 @@ function ProfileLayout() {
           </button>
         </div>
         <h1 className="relative text-white font-extrabold text-3xl text-center pb-4">
-          Account
+          Reward
         </h1>
 
         <Outlet />
@@ -50,4 +49,4 @@ function ProfileLayout() {
   );
 }
 
-export default ProfileLayout;
+export default RedeemLayout;

@@ -1,27 +1,27 @@
-import Button from '@/components/Button'
-import StripLine6Image from '@/assets/images/strip-line-6.png'
-import { useMemo } from 'react'
+import Button from "@/components/Button";
+import StripLine6Image from "@/assets/images/strip-line-6.png";
+import { useMemo } from "react";
 import {
   useRouteError,
   isRouteErrorResponse,
-  useNavigate
-} from 'react-router-dom'
-import MenuBar from '@/components/MenuBar'
+  useNavigate,
+} from "react-router-dom";
+import MenuBar from "@/components/MenuBar";
 
 const ErrorPage = () => {
-  const routeError = useRouteError()
-  const navigate = useNavigate()
+  const routeError = useRouteError();
+  const navigate = useNavigate();
   const error = useMemo(() => {
     if (!isRouteErrorResponse(routeError)) {
       return {
         status: 500,
-        statusText: 'Internal Server Error',
-        data: "We're sorry, but something went wrong."
-      }
+        statusText: "Internal Server Error",
+        data: "We're sorry, but something went wrong.",
+      };
     }
 
-    return routeError
-  }, [routeError])
+    return routeError;
+  }, [routeError]);
 
   return (
     <main className="max-w-md mx-auto h-dynamic-screen flex items-center">
@@ -31,7 +31,7 @@ const ErrorPage = () => {
           <Button
             variant="primary"
             className="w-full"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           >
             Back to Home
           </Button>
@@ -45,7 +45,7 @@ const ErrorPage = () => {
         className="absolute bottom-0 right-0"
       />
     </main>
-  )
-}
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

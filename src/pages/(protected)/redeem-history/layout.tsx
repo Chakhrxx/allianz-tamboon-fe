@@ -5,7 +5,7 @@ import { queryClient } from "@/libs/query-client";
 import { useState } from "react";
 import LogoutConfirmOverlay from "./components/LogoutConfirmOverlay";
 
-function ProfileLayout() {
+function RedeemHistoryLayout() {
   const navigate = useNavigate();
   const [showLogoutConfirmOverlay, setShowLogoutConfirmOverlay] =
     useState(false);
@@ -27,7 +27,8 @@ function ProfileLayout() {
           src={BgMainImage}
           alt="Main background"
         />
-        <div className="flex justify-end relative mb-0">
+
+        <div className="flex justify-end relative">
           <button
             className="mt-2 mx-4 underline underline-offset-2 text-[16px] text-white"
             onClick={() => setShowLogoutConfirmOverlay(true)}
@@ -35,8 +36,8 @@ function ProfileLayout() {
             Logout
           </button>
         </div>
-        <h1 className="relative text-white font-extrabold text-3xl text-center pb-4">
-          Account
+        <h1 className=" relative text-white font-extrabold text-3xl text-center pb-4">
+          Redeem History
         </h1>
 
         <Outlet />
@@ -50,4 +51,4 @@ function ProfileLayout() {
   );
 }
 
-export default ProfileLayout;
+export default RedeemHistoryLayout;

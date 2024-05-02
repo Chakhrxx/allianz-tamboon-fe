@@ -11,7 +11,11 @@ import { loginLoader } from "./pages/login/loader";
 import TownHallPage from "./pages/(protected)/townhall";
 import TownHallLayout from "./pages/(protected)/townhall/layout";
 import TownHallCameraPage from "./pages/(protected)/townhall/camera";
-import CSRLayout from "./pages/(protected)/csr/layout";
+import CSRLayout from "./pages/(protected)/tamboon/layout";
+import RedeemHistoryLayout from "./pages/(protected)/redeem-history/layout";
+import RedeemLayout from "./pages/(protected)/redeem/layout";
+import DetailsPage from "./pages/(protected)/tamboon/detailPage";
+import JoinActivityPage from "./pages/(protected)/tamboon/JoinPage";
 
 export const router = createBrowserRouter([
   {
@@ -57,12 +61,42 @@ export const router = createBrowserRouter([
             ],
           },
           {
+            path: "/redeem-history",
+            element: <RedeemHistoryLayout />,
+            children: [
+              {
+                path: "",
+                Component: lazy(
+                  () => import("./pages/(protected)/redeem-history")
+                ),
+              },
+            ],
+          },
+          {
             path: "/csr",
             element: <CSRLayout />,
             children: [
               {
                 path: "",
-                Component: lazy(() => import("./pages/(protected)/csr")),
+                Component: lazy(() => import("./pages/(protected)/tamboon")),
+              },
+              {
+                path: ":id",
+                element: <DetailsPage />,
+              },
+              {
+                path: "join/:id",
+                element: <JoinActivityPage />,
+              },
+            ],
+          },
+          {
+            path: "/redeem",
+            element: <RedeemLayout />,
+            children: [
+              {
+                path: "",
+                Component: lazy(() => import("./pages/(protected)/redeem")),
               },
             ],
           },
