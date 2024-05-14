@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import ProfileIcon from "@/assets/svgs/profile.svg?react";
-import TamboonIcon from "@/assets/svgs/EagleCoins.svg?react";
+import TamboonIcon from "@/assets/svgs/eagleCoins.svg?react";
 // import HomeIcon from "@/assets/svgs/home.svg?react";
 import RedeemIcon from "@/assets/svgs/redeen-icon.svg?react";
 import classNames from "classnames";
