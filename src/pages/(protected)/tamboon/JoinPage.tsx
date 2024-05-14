@@ -23,7 +23,9 @@ function JoinActivityPage() {
     useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const { data: profile } = useProfile({ enabled: false });
+  const { data: profile, refetch: refreshProfile } = useProfile({
+    enabled: false,
+  });
 
   const handleFileUpload = async (file: File) => {
     await profileService.uploadProfileImage(file);
@@ -189,6 +191,7 @@ function JoinActivityPage() {
       <ProfileSettingsModal
         isOpen={showProfileSettingsModal}
         onClose={() => setShowProfileSettingsModal(false)}
+        onRefresh={refreshProfile}
       />
       <SuccessModal
         isOpen={showSuccessModal}

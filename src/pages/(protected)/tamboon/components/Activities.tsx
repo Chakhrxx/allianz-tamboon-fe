@@ -69,7 +69,7 @@ function Actives() {
                 <div className="relative z-10 flex items-center justify-center gap-2  ">
                   <img className=" h-9" src={EagleCoins} alt="Eagle Coin" />
                   <div>
-                    <div className="text-left font-bold text-xl text-[#EDA740] drop-shadow">
+                    <div className="text-left font-semibold text-xl text-[#EDA740] drop-shadow">
                       {item?.point}
                     </div>
                   </div>
