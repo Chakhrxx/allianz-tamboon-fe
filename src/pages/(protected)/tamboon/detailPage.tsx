@@ -35,7 +35,7 @@ function DetailsPage() {
       descriptions: `กิจกรรมอาสาออนไลน์ "ลองดี" ช่วยผู้ประสบภัยน้ำท่วม`,
       imageUrl:
         "https://www.klongyanglocal.go.th/images/abt/content/20200219095447_57993.jpg",
-      url: "https://www.youtube.com/embed/ACU5beeoBA8",
+      url: "https://www.klongyanglocal.go.th/images/abt/content/20200219095447_57993.jpg",
       video: "https://www.youtube.com/embed/ACU5beeoBA8",
     },
   ];
@@ -72,19 +72,24 @@ function DetailsPage() {
                   </p>
                 </div>
 
-                <p className="text-left  text-sm ont-normal">
+                <p className="text-left  text-sm font-normal">
                   รายละเอียดกิจกรรม :{" "}
                 </p>
-                <Link
-                  className="text-left  text-sm underline"
-                  to={`${item?.url}`}
-                >
-                  <p className="text-left pl-4 text-sm text-primary mb-2">
-                    {`${item?.url}`}
-                  </p>
+                <Link className="text-left  text-sm underline" to={item?.url}>
+                  <div className="text-left  text-sm text-[#0066DE] mb-2 indent-4">
+                    {item?.url}
+                  </div>
                 </Link>
+                {/* 
+                <a
+                  className=" underline underline-offset-2 text-left  text-sm text-[#0066DE] indent-4 "
+                  href={item?.url}
+                >
+                  {item?.url}
+                </a> */}
+
                 <iframe
-                  className="w-full "
+                  className="my-2 w-full"
                   height="210"
                   src={item?.video}
                   title={item?.title}

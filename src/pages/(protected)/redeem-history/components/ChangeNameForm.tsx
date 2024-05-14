@@ -1,47 +1,47 @@
-import TextField from '@/components/TextField'
-import * as yup from 'yup'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import Button from '@/components/Button'
-import { useMemo } from 'react'
+import TextField from "@/components/TextField";
+import * as yup from "yup";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Button from "@/components/Button";
+import { useMemo } from "react";
 
 type FormValues = {
-  name: string
-}
+  name: string;
+};
 
 const validationSchema = yup.object().shape({
   name: yup
     .string()
-    .max(20, 'Display name must be at most 20 characters')
+    .max(20, "Display name must be at most 20 characters")
     .trim()
-    .required()
-})
+    .required(),
+});
 
 // SubmitHandler by validation schema type
 type Props = {
-  onSubmit: SubmitHandler<FormValues>
-}
+  onSubmit: SubmitHandler<FormValues>;
+};
 
 function ChangeNameForm({ onSubmit }: Props) {
   const {
     formState: { errors, isSubmitting, isValid },
     register,
-    handleSubmit
+    handleSubmit,
   } = useForm({
     resolver: yupResolver(validationSchema),
-    mode: 'onBlur'
-  })
+    mode: "onBlur",
+  });
 
   const shouldButtonDisabled = useMemo(() => {
-    return !isValid || isSubmitting
-  }, [isSubmitting, isValid])
+    return !isValid || isSubmitting;
+  }, [isSubmitting, isValid]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* Change Name Form */}
-      <label>Display name</label>
+      <label className="text-white">แก้ไขชื่อของคุณ</label>
       <TextField
-        {...register('name')}
+        {...register("name")}
         className="w-full"
         error={errors.name?.message}
       />
@@ -53,7 +53,7 @@ function ChangeNameForm({ onSubmit }: Props) {
         Submit
       </Button>
     </form>
-  )
+  );
 }
 
-export default ChangeNameForm
+export default ChangeNameForm;

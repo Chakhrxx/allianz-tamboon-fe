@@ -23,12 +23,7 @@ function HomeLayout() {
   return (
     <>
       <Banner />
-      <button
-        className="ml-4 my-3 z-10 top-5 absolute text-md underline underline-offset-2"
-        onClick={() => setShowLogoutConfirmOverlay(true)}
-      >
-        {"Back"}
-      </button>
+
       <div className="relative px-8 py-10 h-full">
         <Outlet />
         <img

@@ -21,37 +21,38 @@ export default function TermsModal({ onAccept, ...props }: Props) {
 
   return (
     <BaseModal className="!bg-transparent" {...props}>
-      <div className="flex flex-col justify-center p-5 bg-[#8B9CC2] rounded-xl min-h-64">
-        <h1 className="text-2xl font-bold mb-4 drop-shadow-xl">
-          Terms & Conditions
-        </h1>
-        <p className="leading-snug text-lg shadow-sm drop-shadow-xl">
-          Allianz word run 2024 จะทำการเก็บรวบ รวมเพื่อ ใช้ หรือ
-          เปิดเผยรหัสเอเจนท์ (Agent code) ต่อบริษัท Box Exhibit เพื่อการเข้าร่วม
-          และจัดกิจกรรม Allianz word run 2024
-          <br />
-          <br />
-          Allianz word run 2024 will process your Agent code and date of birth
-          for the purpose relating to organizing Allianz word run 2024
+      <div className="flex flex-col justify-center p-10 bg-[#8B9CC2] rounded-xl min-h-64">
+        <p className="leading-snug text-lg shadow-sm drop-shadow-xl indent-6 text-left text-white font-normal">
+          Eagle Coins Application จะทำการเก็บรวบรวมเพื่อ ใช้ หรือ เปิดเผย วัน
+          เดือน ปี เกิด (Date of Birth) ต่อบริษัท Box Exhibit
+          เพื่อการเข้าร่วมและจัดกิจกรรม
+        </p>
+
+        <br />
+        <p className="leading-snug text-lg shadow-sm drop-shadow-xl indent-6 text-left text-white font-normal">
+          Eagle Coins Eagle Coins Application will process your Date of Birth
+          for the purpose relating to organizing Eagle Coins activity.
         </p>
         <div className="flex items-center gap-4 mt-10">
           <Checkbox
             id="accept-terms"
-            className="border-[#1E72B8]"
+            className="border-white"
             onChange={handleChange}
           />
-          <label htmlFor="accept-terms drop-shadow-xl">
+          <label
+            htmlFor="accept-terms drop-shadow-xl"
+            className="text-white font-normal"
+          >
             I agree to the terms and conditions
           </label>
         </div>
         <div className="flex items-center justify-center gap-4">
           <Button
-            className="w-[120px] mt-8 rounded-full"
-            // variant="warning"
+            className="relative max-w-[110px] !normal-case !py-2 !mt-8 rounded-full bg-[#00378154] bg-opacity-33 mx-auto !text-lg !font-normal"
             onClick={handleClick}
             disabled={!accepted}
           >
-            NEXT
+            {accepted ? "Next" : "Close"}
           </Button>
         </div>
       </div>

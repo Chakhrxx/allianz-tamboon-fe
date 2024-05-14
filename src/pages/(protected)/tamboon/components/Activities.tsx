@@ -78,7 +78,7 @@ function Actives() {
               <div className="px-2 text-sm font-inter">
                 {item?.descriptions}
               </div>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center my-2">
                 <div className="text-red-400  text-sm">
                   Expired :{" "}
                   {new Date(item.date).toLocaleDateString("en-US", {

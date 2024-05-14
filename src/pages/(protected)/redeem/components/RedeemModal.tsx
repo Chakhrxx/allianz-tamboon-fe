@@ -16,6 +16,7 @@ interface RedeemDetailModalProps {
 const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
   const { data: profile } = useProfile({ enabled: false });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [counter, setCounter] = useState(1);
   const data = [
     {
       id: "1",
@@ -26,6 +27,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
       expired: "31 Jul 2024",
       imageUrl:
         "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
+      total: 4,
     },
     {
       id: "2",
@@ -36,6 +38,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
       expired: "31 Jul 2024",
       imageUrl:
         "https://fastly.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ",
+      total: 1,
     },
     {
       id: "3",
@@ -48,6 +51,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
       expired: "25 Jul 2024",
       imageUrl:
         "https://fastly.picsum.photos/id/16/2500/1667.jpg?hmac=uAkZwYc5phCRNFTrV_prJ_0rP0EdwJaZ4ctje2bY7aE",
+      total: 3,
     },
     {
       id: "4",
@@ -59,6 +63,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
       expired: "25 Jul 2024",
       imageUrl:
         "https://fastly.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ",
+      total: 2,
     },
   ];
   const filteredData = data.filter((item) => item?.id === id);
@@ -138,15 +143,45 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
                     </span>
                   </div>
                 </div>
+                <div className="flex justify-center space-x-2 mt-3">
+                  <button
+                    onClick={() => {
+                      if (counter > 1) {
+                        setCounter(counter - 1);
+                      }
+                    }}
+                    className={`bg-primary text-white px-2 rounded-md text-base ${
+                      counter === 1 ? "bg-[#E3E3E3]" : ""
+                    }`}
+                  >
+                    -
+                  </button>
+                  <div className="bg-[#E3E3E3] text-[#5A4B43] rounded-md text-base w-12  text-center">
+                    {counter}
+                  </div>
 
-                <Button
-                  className=" w-36 mx-auto !py-2 text-primary !mt-6 rounded-full font-normal text-base"
-                  onClick={() => openModal()}
-                  variant="danger"
-                  // disabled={shouldButtonDisabled}
-                >
-                  Next
-                </Button>
+                  <button
+                    onClick={() => setCounter(counter + 1)}
+                    className="bg-primary text-white px-2 rounded-md text-base"
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="flex justify-center space-x-4">
+                  <Button
+                    className=" w-36  !py-2 !text-primary !bg-white !mt-4 rounded-full font-normal text-base border border-primary !normal-case"
+                    onClick={onClose}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    className=" w-36  !py-2  !mt-4 rounded-full font-normal text-base border border-primary !normal-case"
+                    onClick={() => openModal()}
+                    variant="primary"
+                  >
+                    Next
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

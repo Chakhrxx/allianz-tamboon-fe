@@ -36,7 +36,7 @@ function Avatar({ url, containerClassName, onFileUpload }: Props) {
       />
 
       {url ? (
-        <div className="w-20 h-20 border-4 rounded-full overflow-hidden">
+        <div className="w-20 h-20 border-4 border-white rounded-full overflow-hidden shadow-xl">
           <img
             className="w-full h-full object-cover"
             src={url}
@@ -54,7 +54,7 @@ function Avatar({ url, containerClassName, onFileUpload }: Props) {
         ></div>
       )}
 
-      <CameraIcon className="absolute bottom-4 right-0 z-10" />
+      <CameraIcon className="absolute bottom-4 -right-1 z-10" />
     </div>
   );
 }

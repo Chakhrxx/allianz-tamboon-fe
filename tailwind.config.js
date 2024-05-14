@@ -9,8 +9,8 @@ export default {
         primary: "#003781",
       },
       fontFamily: {
-        "allianz-neo": ["Allianz-Neo", "sans-serif"],
-        inter: ["Inter"],
+        kanit: ["Kanit", "sans-serif"],
+        sans: ["Kanit", "sans-serif"],
       },
     },
   },

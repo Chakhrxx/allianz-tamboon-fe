@@ -1,6 +1,5 @@
 import BgMainImage from "@/assets/svgs/Tambbon-Login-bg.svg";
-import AllianzLogo from "@/assets/svgs/Allianz-Ayudhya-Logo.svg";
-// import CoinButton from "@/components/CoinButton";
+import CoinAnimation from "@/assets/images/750-3D Coin Animation-V2.png";
 
 type Props = {
   onClose: () => void;
@@ -8,29 +7,27 @@ type Props = {
 
 function LoginCoverPage({ onClose }: Props) {
   return (
-    <div className="relative h-full p-5">
+    <div className="relative h-full p-5 flex flex-col items-center">
       <img
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-full"
+        className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full object-cover"
         src={BgMainImage}
         alt="Main background"
       />
+
       <img
-        className="relative max-w-[300px] mx-auto z-10 py-36"
-        src={AllianzLogo}
+        className="relative max-w-[320px] mx-auto mt-24"
+        src={CoinAnimation}
         alt="Allianz Ayudhya Logo"
       />
-      <div className="relative">
+
+      <div className="relative mt-6">
         <div
-          className="relative bg-[#4A4DE7] w-48 p-2 mx-auto my-6 z-20 rounded-full "
+          className="relative bg-[#223D7C] w-[110px] py-3 mx-auto z-20 rounded-full"
           onClick={onClose}
         >
-          <div className="text-xl italic text-white text-center">LOGIN</div>
-        </div>
-        <div
-          className="relative  w-48 p-2 mx-auto my-6 z-20 rounded-full border-2 border-[#4A4DE7] "
-          onClick={onClose}
-        >
-          <div className="text-xl italic text-white text-center">SIGN UP</div>
+          <div className=" text-lg font-normal text-white text-center">
+            LOGIN
+          </div>
         </div>
       </div>
     </div>

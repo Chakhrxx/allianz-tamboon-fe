@@ -9,8 +9,10 @@ function ProtectedLayout() {
       <div className="flex flex-col h-full">
         <div className="flex-grow overflow-auto">
           <Outlet />
+          <div className="sticky bottom-5 z-10 bg-transparent">
+            <MenuBar />
+          </div>
         </div>
-        <MenuBar />
       </div>
     </Suspense>
   );

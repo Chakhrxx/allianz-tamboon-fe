@@ -57,24 +57,28 @@ function RedeemPage() {
     <>
       <div className="relative z-10 text-center p-6 bg-white rounded-t-[38px]">
         <div className=" relative">
-          <div className=" absolute flex bottom-0 right-0 rounded-tl-xl bg-[#FAEDA2] drop-shadow-2xl px-6 py-1 items-center">
+          <img
+            src={Coupon}
+            alt=""
+            className="w-full h-[210px] object-cover mx-auto rounded-2xl"
+          />
+          <div className=" absolute flex bottom-0 right-0 rounded-tl-xl bg-[#FAEDA2] drop-shadow-2xl px-6 py-1 items-center h-[46px]">
             <img src={EagleCoins} alt="" className="w-10" />
-            <div className="text-[#EDA23D] drop-shadow-sm font-bold text-3xl leading-none">
+            <div className="text-[#EDA23D] drop-shadow-sm font-semibold text-xl leading-none">
               350
-              <p className="text-[#EDA23D] font-thin text-sm drop-shadow-sm">
+              <p className="text-[#EDA23D] font-extralight text-sm drop-shadow-sm leading-none">
                 eagle coins
               </p>
             </div>
           </div>
-          <img src={Coupon} alt="" className="w-full" />
         </div>
         <div className="relative flex justify-center text-center p-1 bg-gradient-to-r from-[#7DD1E8] from-22% to-[#19A2DE] to-84% rounded-b-[38px] drop-shadow-lg items-center gap-2 mx-auto w-3/4">
           <img src={EagleCoins} alt="" className="w-12" />
-          <p className="text-white font-bold text-xl drop-shadow-sm gap-2">
+          <p className="text-white font-semibold text-lg drop-shadow-sm gap-2">
             You have {profile?.coins} coins
           </p>
         </div>
-        <div className="font-bold text-xl text-left mt-4  drop-shadow-md">
+        <div className="font-semibold text-lg text-left mt-4  drop-shadow-md">
           All Rewards
         </div>
 
@@ -82,28 +86,36 @@ function RedeemPage() {
           {data.map((item) => (
             <div onClick={() => openModal(item?.id)}>
               <div
-                className=" relative  my-2 rounded-2xl drop-shadow-2xl h-full"
+                className=" relative  my-2 rounded-2xl drop-shadow-2xl h-full "
                 key={item?.id}
               >
                 <div className=" relative">
-                  <img src={item?.imageUrl} alt="" className="rounded-t-2xl" />
+                  <img
+                    src={item?.imageUrl}
+                    alt=""
+                    className="rounded-t-2xl border-b-0 border-[3px] border-white"
+                  />
                   <div className=" absolute flex bottom-0 right-0 rounded-tl-xl bg-[#FAEDA2] drop-shadow-2xl px-2 items-center">
                     <img src={EagleCoins} alt="" className="w-6" />
-                    <div className="text-[#EDA23D] drop-shadow-sm font-bold text-base leading-none py-1">
+                    <div className="text-[#EDA23D] drop-shadow-sm font-semibold text-base leading-none py-1">
                       {item?.useCoins}
-                      <p className="text-[#EDA23D] font-thin text-xs drop-shadow-sm">
+                      <p className="text-[#EDA23D] font-extralight text-xs drop-shadow-sm leading-none ">
                         eagle coins
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="relative bg-white px-3 py-4">
+                <div className="relative bg-white px-3 py-2 h-[120px]">
                   <p className="font-semibold text-sm text-left pb-2 text-black">
-                    {item?.title}
+                    {item?.title?.length > 40
+                      ? `${item?.title.substring(0, 40)}...`
+                      : item?.title}
                   </p>
                   <p className=" text-xs text-left font-thin indent-4 text-black">
-                    {item?.descriptions}
+                    {item?.descriptions?.length > 50
+                      ? `${item?.descriptions.substring(0, 50)}...`
+                      : item?.descriptions}
                   </p>
                 </div>
                 <div className="relative flex justify-center text-center p-1 bg-gradient-to-r from-[#7DD1E8] from-22% to-[#19A2DE] to-84% rounded-b-xl drop-shadow-lg items-center">

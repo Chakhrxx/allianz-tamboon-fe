@@ -1,19 +1,24 @@
 import { useProfile } from "@/hooks/useProfile";
 import { useState } from "react";
-import Avatar from "./components/Avatar";
+import Avatar from "../profile/components/Avatar";
 import BxEdit from "@/assets/svgs/bx-edit.svg?react";
-import ProfileSettingsModal from "./components/ProfileSettingModal";
+import ProfileSettingsModal from "../profile/components/ProfileSettingModal";
 import RedeemModal from "./components/RedeemModal";
 import { queryClient } from "@/libs/query-client";
 import { profileService } from "@/services/profile";
 import EagleCoins from "@/assets/svgs/eagle-coin-gray.svg";
+import BackArrowIcon from "@/assets/svgs/BackArrowIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 function RedeemHistoryPage() {
   const [showProfileSettingsModal, setShowProfileSettingsModal] =
     useState(false);
   const [showRedeemDetailModal, setShowRedeemDetailModal] = useState(false);
   const [showId, setShowId] = useState("");
-  const { data: profile } = useProfile({ enabled: false });
+  const { data: profile, refetch: refetchProfile } = useProfile({
+    enabled: false,
+  });
+  const navigate = useNavigate();
   const data = [
     {
       id: "1",
@@ -61,7 +66,7 @@ function RedeemHistoryPage() {
     return {
       ...item,
       title:
-        title.length > 25 ? `${title.substring(0, 24)} ...` : `${title} ...`,
+        title.length > 25 ? `${title.substring(0, 20)} ...` : `${title} ...`,
     };
   });
 
@@ -81,29 +86,30 @@ function RedeemHistoryPage() {
     <>
       <div className="relative z-10 text-center p-6 bg-white h-full rounded-t-[38px]">
         <div className="relative rounded-3xl drop-shadow-md h-full">
-          <div className="relative z-10 flex items-center gap-4 ">
+          <div className="relative z-10 flex items-start gap-4 ">
             <div>
               <Avatar
                 url={profile?.profile.profileImgUrl}
                 onFileUpload={handleFileUpload}
               />
-              <div className=" inline-flex text-center font-bold text-xs mt-2 gap-1">
+              <div className=" inline-flex text-center font-semibold text-[11px] mt-2 gap-1">
                 ID : <p>{profile?.profile.id}</p>
               </div>
             </div>
-
             <div>
-              <div className="font-bold text-xl text-left items-center">
-                {profile?.profile.displayName}
+              <div className="font-bold text-lg text-left">
+                {profile?.profile.displayName} &nbsp;
                 <BxEdit
-                  className="inline-block"
+                  className="inline-block w-4 h-4"
                   onClick={() => setShowProfileSettingsModal(true)}
                 />
               </div>
-              <div className=" text-left">{profile?.profile.username}</div>
+              <div className=" text-left text-sm font-normal">
+                {profile?.profile.username}
+              </div>
             </div>
           </div>
-          <div className=" text-left text-md font-bold py-2">History</div>
+          <div className=" text-left text-lg font-bold py-2">History</div>
           <div className="flex flex-wrap gap-2 justify-center">
             {truncatedData.map((item) => (
               <div
@@ -117,33 +123,33 @@ function RedeemHistoryPage() {
                     className=" max-w-28 h-24"
                   />
                   <div className="px-4 py-2">
-                    <div className=" text-base font-bold font-inter">
-                      {item?.title}
-                    </div>
+                    <div className=" text-sm font-medium ">{item?.title}</div>
                     <div className="my-2">
-                      <div className=" flex gap-1 text-xs font-inter text-gray-500">
+                      <div className="font-medium flex gap-1 text-[9px]  text-gray-500">
                         Redeem date :{" "}
-                        <p className="text-xs text-blue-400">
+                        <p className="text-[9px] font-medium text-blue-400">
                           {item?.redeemDate}
                         </p>
                       </div>
-                      <div className=" flex text-xs font-inter text-gray-500 gap-1">
+                      <div className="font-medium flex text-[9px]  text-gray-500 gap-1">
                         Expired :
-                        <p className="text-xs text-red-400">{item?.expired}</p>
+                        <p className="font-medium text-[9px] text-red-400">
+                          {item?.expired}
+                        </p>
                       </div>
                     </div>
 
-                    <div className="font-bold  text-sm">
+                    <div className="font-medium  text-[10px]">
                       Total : {item?.total}
                     </div>
                   </div>
 
                   <div className="absolute z-10 flex items-center justify-center right-0 mr-2">
                     <div className="item-center">
-                      <div className="text-center text-[#7A7B7B]">
+                      <div className="text-center text-[#7A7B7B] text-[10px] justify-center">
                         Use coins
                       </div>
-                      <div className="flex text-center items-center font-bold text-xl text-[#7A7B7B] gap-1">
+                      <div className="flex text-center items-center font-semibold text-lg text-[#7A7B7B] gap-1">
                         <img
                           className="h-8"
                           src={EagleCoins}
@@ -152,7 +158,7 @@ function RedeemHistoryPage() {
                         {item?.useCoins}
                       </div>
                       <button
-                        className="bg-white py-1 px-4 mx-auto mt-4 rounded-full border-2 border-primary text-sm"
+                        className="bg-white py-1 px-4 mx-auto mt-4 rounded-full border-2 border-primary text-[10px] font-medium"
                         onClick={() => openModal(item?.id)}
                       >
                         Detail
@@ -163,11 +169,15 @@ function RedeemHistoryPage() {
               </div>
             ))}
           </div>
+          <button className="mt-4" onClick={() => navigate("/profile")}>
+            <img src={BackArrowIcon} alt="" className=" w-14 h-14" />
+          </button>
         </div>
       </div>
       <ProfileSettingsModal
         isOpen={showProfileSettingsModal}
         onClose={() => setShowProfileSettingsModal(false)}
+        onRefresh={refetchProfile}
       />
       <RedeemModal
         id={showId}

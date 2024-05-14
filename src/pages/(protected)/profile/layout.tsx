@@ -29,13 +29,13 @@ function ProfileLayout() {
         />
         <div className="flex justify-end relative mb-0">
           <button
-            className="mt-2 mx-4 underline underline-offset-2 text-[16px] text-white"
+            className="mt-2 mx-4 underline underline-offset-2 text-[15px] text-white"
             onClick={() => setShowLogoutConfirmOverlay(true)}
           >
             Logout
           </button>
         </div>
-        <h1 className="relative text-white font-extrabold text-3xl text-center pb-4">
+        <h1 className="relative text-white font-extrabold text-[28px] text-center pb-4">
           Account
         </h1>
 

@@ -28,6 +28,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
       expired: "31 Jul 2024",
       total: 1,
       useCoins: 350,
+      status: "Approve",
       imageUrl:
         "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     },
@@ -39,6 +40,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
       expired: "31 Jul 2024",
       total: 2,
       useCoins: 200,
+      status: "Reject",
       imageUrl:
         "https://fastly.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ",
     },
@@ -50,6 +52,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
       expired: "25 Jul 2024",
       total: 2,
       useCoins: 700,
+      status: "Reject",
       imageUrl:
         "https://fastly.picsum.photos/id/16/2500/1667.jpg?hmac=uAkZwYc5phCRNFTrV_prJ_0rP0EdwJaZ4ctje2bY7aE",
     },
@@ -69,7 +72,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
                 <img
                   src={item?.imageUrl}
                   alt="Image Label"
-                  className="w-full"
+                  className="w-full rounded-2xl"
                 />
                 <div className="text-[#6A6A6A] font-bold py-5">
                   {item?.title}
@@ -108,9 +111,20 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
                     <div className=" flex  text-[#7A7B7B] gap-1">
                       Expired :<p className=" text-red-400">{item?.expired}</p>
                     </div>
+                    <div className="font-bold">Total : {item?.total}</div>
+                    <div className=" flex  text-[#7A7B7B] gap-1">
+                      Status :
+                      <p
+                        className={
+                          item?.status === "Approve"
+                            ? "text-green-400"
+                            : "text-red-400"
+                        }
+                      >
+                        {item?.status}
+                      </p>
+                    </div>
                   </div>
-
-                  <div className="font-bold">Total : {item?.total}</div>
                 </div>
 
                 <div className="relativ flex items-center justify-center">
