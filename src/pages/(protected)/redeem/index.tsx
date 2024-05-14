@@ -84,11 +84,8 @@ function RedeemPage() {
 
         <div className="grid grid-cols-2 gap-4 mb-4">
           {data.map((item) => (
-            <div onClick={() => openModal(item?.id)}>
-              <div
-                className=" relative  my-2 rounded-2xl drop-shadow-2xl h-full "
-                key={item?.id}
-              >
+            <div onClick={() => openModal(item?.id)} key={item?.id}>
+              <div className=" relative  my-2 rounded-2xl drop-shadow-2xl h-full ">
                 <div className=" relative">
                   <img
                     src={item?.imageUrl}

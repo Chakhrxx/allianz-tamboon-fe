@@ -76,17 +76,10 @@ function DetailsPage() {
                   รายละเอียดกิจกรรม :{" "}
                 </p>
                 <Link className="text-left  text-sm underline" to={item?.url}>
-                  <div className="text-left  text-sm text-[#0066DE] mb-2 indent-4">
+                  <div className="text-left  text-sm text-[#0066DE] indent-4 break-words overflow-hidden prose">
                     {item?.url}
                   </div>
                 </Link>
-                {/* 
-                <a
-                  className=" underline underline-offset-2 text-left  text-sm text-[#0066DE] indent-4 "
-                  href={item?.url}
-                >
-                  {item?.url}
-                </a> */}
 
                 <iframe
                   className="my-2 w-full"

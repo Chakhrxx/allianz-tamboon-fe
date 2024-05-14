@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Avatar from "./components/Avatar";
+import Avatar from "../profile/components/Avatar";
 import BxEdit from "@/assets/svgs/bx-edit.svg?react";
 import UploadIcon from "@/assets/svgs/Upload.svg";
 import { useProfile } from "@/hooks/useProfile";
@@ -91,24 +91,26 @@ function JoinActivityPage() {
   return (
     <>
       <div className="relative  text-center p-6 bg-white rounded-t-[38px]">
-        <div className="relative z-10 flex items-center gap-4 mb-4">
+        <div className="relative z-10 flex items-start gap-4 mb-4 ">
           <div>
             <Avatar
               url={profile?.profile.profileImgUrl}
               onFileUpload={handleFileUpload}
             />
+            <div className=" inline-flex text-center font-semibold text-[11px] mt-2 gap-1">
+              ID : <p>{profile?.profile.id}</p>
+            </div>
           </div>
           <div>
-            <div className="font-bold text-xl text-left">
-              {profile?.profile.displayName}
+            <div className="font-bold text-lg text-left">
+              {profile?.profile.displayName} &nbsp;
               <BxEdit
-                className="inline-block"
+                className="inline-block w-4 h-4"
                 onClick={() => setShowProfileSettingsModal(true)}
               />
             </div>
-            <div className=" text-left">{profile?.profile.username}</div>
-            <div className=" flex text-left font-bold text-xs mt-2 gap-1">
-              ID : <p>{profile?.profile.id}</p>
+            <div className=" text-left text-sm font-normal">
+              {profile?.profile.username}
             </div>
           </div>
         </div>

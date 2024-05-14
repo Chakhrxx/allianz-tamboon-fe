@@ -5,7 +5,7 @@ import EmailIcon from "@/assets/svgs/email-icon.svg";
 import Button from "@/components/Button";
 import EagleCoins from "@/assets/svgs/eagle-coin.svg";
 import { useProfile } from "@/hooks/useProfile";
-import SuccessModal from "./SuccessModal";
+import ConfirmModal from "./ConfirmModal";
 
 interface RedeemDetailModalProps {
   isOpen: boolean;
@@ -73,7 +73,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
 
   const openModal = () => {
     setShowSuccessModal(true);
-    onClose();
+    // onClose();
   };
   return (
     <>
@@ -150,8 +150,8 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
                         setCounter(counter - 1);
                       }
                     }}
-                    className={`bg-primary text-white px-2 rounded-md text-base ${
-                      counter === 1 ? "bg-[#E3E3E3]" : ""
+                    className={` text-white px-2 rounded-md text-base ${
+                      counter > 1 ? "bg-primary " : "bg-[#E3E3E3]"
                     }`}
                   >
                     -
@@ -187,9 +187,11 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
           </div>
         ))}
       </BaseModal>
-      <SuccessModal
+      <ConfirmModal
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
+        id={id}
+        total={counter}
       />
     </>
   );
