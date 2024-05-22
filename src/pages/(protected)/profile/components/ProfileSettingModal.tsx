@@ -18,10 +18,10 @@ const tabs = [
     id: "changeName",
     label: "แก้ไขชื่อของคุณ",
   },
-  {
-    id: "changePassword",
-    label: "แก้ไขรหัสผ่านของคุณ",
-  },
+  // {
+  //   id: "changePassword",
+  //   label: "แก้ไขรหัสผ่านของคุณ",
+  // },
 ];
 
 const ProfileSettingsModal: FC<ProfileSettingsModalProps> = ({

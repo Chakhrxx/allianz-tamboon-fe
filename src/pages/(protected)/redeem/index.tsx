@@ -1,58 +1,26 @@
-import EagleCoins from "@/assets/svgs/eagle-coin.svg";
+import EagleCoins from "@/assets/images/eaglecoin 4.png";
 import Coupon from "@/assets/svgs/Coupon.svg";
 import { useProfile } from "@/hooks/useProfile";
 import RedeemModal from "./components/RedeemModal";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import { redeemService } from "@/services/redeem";
 function RedeemPage() {
   const [showRedeemDetailModal, setShowRedeemDetailModal] = useState(false);
-  const [showId, setShowId] = useState("");
+  const [showId, setShowId] = useState<number>(0);
   const { data: profile } = useProfile({ enabled: false });
+  const { data: reedeem } = useQuery(["reedeem", profile?.profile.id], () =>
+    redeemService.getByUserId(profile?.profile.id ?? 0)
+  );
 
-  const openModal = (id: string) => {
+  const openModal = (id: number) => {
     setShowRedeemDetailModal(true);
     setShowId(id);
   };
-  const data = [
-    {
-      id: "1",
-      title: "แพ็คเกจทัวร์ กระบี่ 3 วัน 2 คืน",
-      descriptions: `เที่ยวหน้าหนาวกระบี่ ตั๋วเครื่องบินไป-กลับ พร้อมที่พัก 3 วัน 2
-      คืนกับ Air Asia SNAP`,
-      useCoins: 320,
-      imageUrl:
-        "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
-    },
-    {
-      id: "2",
-      title: "Passion Delivery Gift Voucher. Value 1000 baht.",
-      descriptions: `Passion Delivery gift vouchers are the perfect gift for any occasion.
-      The recipient can choose from over 1500 products from 50+ shops.`,
-      useCoins: 100,
-      imageUrl:
-        "https://fastly.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ",
-    },
-    {
-      id: "3",
-      title: "Wonka Chocolate Factory Personal lised Golden Ticket",
-      descriptions: `This ticket gives every child a unique 
-      adventure in Willy Wonka’s factory. In 
-      Roald Dahl’s original,there were only five Golden Tickets in the whole world. 
-      `,
-      useCoins: 150,
-      imageUrl:
-        "https://fastly.picsum.photos/id/16/2500/1667.jpg?hmac=uAkZwYc5phCRNFTrV_prJ_0rP0EdwJaZ4ctje2bY7aE",
-    },
-    {
-      id: "4",
-      title: "เเพ็กเก็จเที่ยวเชียงใหม่ ตั๋วเครื่องบินไป-กลับ พร้อมที่พัก",
-      descriptions: `   เที่ยวหน้าหนาวเชียงใหม่ ตั๋วเครื่องบินไป-กลับ
-      พร้อมที่พัก 3 วัน 2 คืนกับ AirAsia SNAP . 
-      `,
-      useCoins: 150,
-      imageUrl:
-        "https://fastly.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ",
-    },
-  ];
+
+  if (!profile) return null;
+  if (!reedeem) return null;
+
   return (
     <>
       <div className="relative z-10 text-center p-6 bg-white rounded-t-[38px]">
@@ -83,19 +51,19 @@ function RedeemPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-4">
-          {data.map((item) => (
+          {reedeem.map((item) => (
             <div onClick={() => openModal(item?.id)} key={item?.id}>
               <div className=" relative  my-2 rounded-2xl drop-shadow-2xl h-full ">
                 <div className=" relative">
                   <img
-                    src={item?.imageUrl}
+                    src={item?.coverImage}
                     alt=""
                     className="rounded-t-2xl border-b-0 border-[3px] border-white"
                   />
                   <div className=" absolute flex bottom-0 right-0 rounded-tl-xl bg-[#FAEDA2] drop-shadow-2xl px-2 items-center">
                     <img src={EagleCoins} alt="" className="w-6" />
                     <div className="text-[#EDA23D] drop-shadow-sm font-semibold text-base leading-none py-1">
-                      {item?.useCoins}
+                      {item?.coins}
                       <p className="text-[#EDA23D] font-extralight text-xs drop-shadow-sm leading-none ">
                         eagle coins
                       </p>
@@ -110,9 +78,9 @@ function RedeemPage() {
                       : item?.title}
                   </p>
                   <p className=" text-xs text-left font-thin indent-4 text-black">
-                    {item?.descriptions?.length > 50
-                      ? `${item?.descriptions.substring(0, 50)}...`
-                      : item?.descriptions}
+                    {item?.description?.length > 50
+                      ? `${item?.description.substring(0, 50)}...`
+                      : item?.description}
                   </p>
                 </div>
                 <div className="relative flex justify-center text-center p-1 bg-gradient-to-r from-[#7DD1E8] from-22% to-[#19A2DE] to-84% rounded-b-xl drop-shadow-lg items-center">
@@ -125,11 +93,13 @@ function RedeemPage() {
           ))}
         </div>
       </div>
-      <RedeemModal
-        id={showId}
-        isOpen={showRedeemDetailModal}
-        onClose={() => setShowRedeemDetailModal(false)}
-      />
+      {showRedeemDetailModal && (
+        <RedeemModal
+          id={showId}
+          isOpen={showRedeemDetailModal}
+          onClose={() => setShowRedeemDetailModal(false)}
+        />
+      )}
     </>
   );
 }

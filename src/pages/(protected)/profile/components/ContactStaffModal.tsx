@@ -8,6 +8,8 @@ import TextField from "@/components/TextField";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SuccessModal from "./ContactStaffSucessModal";
+import { useMutation } from "react-query";
+import { requestContactStaffService } from "@/services/request-contact-staff";
 
 const validationSchema = yup.object().shape({
   detail: yup.string().trim().required(),
@@ -20,6 +22,9 @@ interface ContactStaffModalProps {
 
 const ContactStaffModal: FC<ContactStaffModalProps> = ({ isOpen, onClose }) => {
   const { data: profile } = useProfile({ enabled: false });
+  const mutation = useMutation((data) =>
+    requestContactStaffService.create(data)
+  );
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const {
@@ -38,7 +43,14 @@ const ContactStaffModal: FC<ContactStaffModalProps> = ({ isOpen, onClose }) => {
     [isSubmitting, isValid]
   );
   const onSubmit = handleSubmit(async (data) => {
-    console.log("data", data);
+    const requestData = {
+      userId: profile?.profile.id,
+      email: !profile?.profile.username.includes("@")
+        ? `${profile?.profile.username}@test.com`
+        : profile?.profile.username,
+      detail: data.detail,
+    };
+    await mutation.mutateAsync(requestData);
     setShowSuccessModal(true);
     onClose();
     reset();

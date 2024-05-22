@@ -43,7 +43,7 @@ function ChangeNameForm({ onSubmit }: Props) {
         className="flex flex-col items-center "
       >
         <p className="text-[#6F5F5F] font-normal my-2">
-          กรุณากรอกชื่อใหม่ของคุณ
+          Please fill in your new name
         </p>
         <TextField
           {...register("name")}

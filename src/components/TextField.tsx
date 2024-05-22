@@ -24,7 +24,7 @@ const TextField = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
           props.className
         )}
       />
-      <animated.small style={errorStyle} className="text-red-500 font-medium">
+      <animated.small style={errorStyle} className="text-red-500 font-light">
         {props.error}
       </animated.small>
     </>

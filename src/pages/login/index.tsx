@@ -106,7 +106,7 @@ function LoginPage() {
               <TextField
                 {...register("username")}
                 className="w-full bg-[#00378154] bg-opacity-33 placeholder-white placeholder-opacity-50 !px-12 !py-3"
-                placeholder="Hello@allianz.co.th"
+                placeholder="Agen Code"
                 error={errors.username?.message}
               />
               <span className="absolute top-0 left-0 px-4 pt-3 flex">
@@ -128,7 +128,6 @@ function LoginPage() {
                 placeholder="********"
                 error={errors.password?.message}
               />
-
               <span className="absolute top-0 left-0 px-4 pt-[10px] flex">
                 <img
                   src={PasswordIcon}
@@ -138,7 +137,7 @@ function LoginPage() {
               </span>
             </div>
           </div>
-          <small className="block text-center text-red-500 font-medium mt-2">
+          <small className="block text-center text-red-500 font-thin mt-2">
             {errors.root?.message}
           </small>
           <Button

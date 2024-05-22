@@ -43,7 +43,7 @@ const menuItems: MenuItem[] = [
 function MenuBar() {
   const [activeTab, setActiveTab] = useState<string>("");
   return (
-    <nav className="bg-primary px-3 py-2 text-white rounded-full m-5 drop-shadow-lg">
+    <nav className="bg-primary px-3 py-2 text-white rounded-full m-5 drop-shadow-lg ">
       <ul className="flex justify-center gap-10 items-end h-full">
         {menuItems.map(({ label, path, IconComponent, id }) => (
           <button

@@ -23,10 +23,10 @@ const SuccessModal: FC<ContactStaffModalProps> = ({ isOpen, onClose }) => {
         <div className="p-6">
           <img src={SuccesssIcon} className="mx-auto py-4" />
           <div className="text-center">
-            <div className=" font-bold">อัพโหลดสำเร็จ !</div>
-            <div>กรุณารอการตรวจสอบจากเจ้าหน้าที่</div>
+            <div className=" font-bold">Successfully uploaded</div>
+            <div className=" font-bold"> Thank you.</div>
             <Button
-              className="mx-auto !py-2 text-white !mt-6 font-normal text-base rounded-full"
+              className="mx-auto !py-2 !bg-[#003781] text-white !mt-6 font-normal text-base rounded-full"
               variant="danger"
               onClick={closeModal}
               // disabled={shouldButtonDisabled}

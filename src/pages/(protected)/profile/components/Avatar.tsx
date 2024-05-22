@@ -36,7 +36,7 @@ function Avatar({ url, containerClassName, onFileUpload }: Props) {
       />
 
       {url ? (
-        <div className="w-20 h-20 border-4 border-white rounded-full overflow-hidden  drop-shadow-2xl shadow-lg">
+        <div className="w-20 h-20 border-4 border-white rounded-full overflow-hidden  drop-shadow-2xl ">
           <img
             className="w-full h-full object-cover"
             src={url}

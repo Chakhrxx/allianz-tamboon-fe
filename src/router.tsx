@@ -16,6 +16,7 @@ import RedeemHistoryLayout from "./pages/(protected)/redeem-history/layout";
 import RedeemLayout from "./pages/(protected)/redeem/layout";
 import DetailsPage from "./pages/(protected)/tamboon/detailPage";
 import JoinActivityPage from "./pages/(protected)/tamboon/JoinPage";
+import RedeemDetail from "./pages/(protected)/redeem/components/RedeemModal";
 
 export const router = createBrowserRouter([
   {

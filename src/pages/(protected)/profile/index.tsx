@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import QRCode from "react-qr-code";
 import Avatar from "./components/Avatar";
 import BxEdit from "@/assets/svgs/bx-edit.svg?react";
-import EagleCoins from "@/assets/svgs/eagle-coin.svg";
+import EagleCoins from "@/assets/images/eaglecoin 4.png";
 import RedeemTicket from "@/assets/svgs/redeem-ticket.svg";
 import ContactStaff from "@/assets/svgs/customer-service.svg";
 import ProfileSettingsModal from "./components/ProfileSettingModal";
