@@ -46,20 +46,20 @@ function Actives() {
                 <div className="text-red-400  text-sm">
                   Expired :{" "}
                   {new Date(item?.expiredDate).toLocaleDateString("th-TH", {
-                    year: "numeric",
+                    // year: "numeric",
                     month: "long",
                     day: "2-digit",
                   })}
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex space-x-2 pl-2">
                   <button
-                    className="bg-white py-1 px-6 rounded-full border-2 border-primary text-sm"
+                    className="bg-white py-1 px-4 rounded-full border-2 border-primary text-sm"
                     onClick={() => navigate(`/csr/${item?.id}`)}
                   >
                     Detail
                   </button>
                   <button
-                    className="bg-primary text-white py-1 px-8 rounded-full text-sm"
+                    className="bg-primary text-white py-1 px-6 rounded-full text-sm"
                     onClick={() => navigate(`/csr/join/${item?.id}`)}
                   >
                     Join

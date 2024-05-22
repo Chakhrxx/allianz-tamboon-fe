@@ -1,29 +1,25 @@
 import { FC } from "react";
 import BaseModal from "@/components/BaseModal";
 import Button from "@/components/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { redeemService } from "@/services/redeem";
 
 interface ContactStaffModalProps {
   isOpen: boolean;
-  onClose: () => void;
-  id: number;
-  counter: number;
 }
 
-const SuccessModal: FC<ContactStaffModalProps> = ({
-  isOpen,
-  onClose,
-  id,
-  counter,
-}) => {
+const RedeemSuccessModal: FC<ContactStaffModalProps> = ({ isOpen }) => {
+  const { id } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const counter = searchParams.get("counter");
   const navigate = useNavigate();
   const { data: reedeemOne } = useQuery(["redeem", id], () =>
-    redeemService.getOne(id)
+    redeemService.getOne(id ?? "")
   );
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseModal isOpen={isOpen} onClose={() => navigate("/redeem")}>
       <div className="modal-body">
         <div className="w-full bg-white flex"></div>
 
@@ -43,12 +39,11 @@ const SuccessModal: FC<ContactStaffModalProps> = ({
               จำนวน {counter} ชิ้น
             </div>
             <div className="text-[#EDA23D] font-normal">
-              โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * counter} เหรียญ
+              โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * parseInt(counter)} เหรียญ
             </div>
             <Button
               className="mx-auto !py-3  text-white !mt-6 font-normal !text-lg rounded-full"
               onClick={() => {
-                onClose();
                 navigate("/redeem");
               }}
             >
@@ -61,4 +56,4 @@ const SuccessModal: FC<ContactStaffModalProps> = ({
   );
 };
 
-export default SuccessModal;
+export default RedeemSuccessModal;

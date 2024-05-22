@@ -4,7 +4,7 @@ export const redeemService = {
   getAll: async () => {
     return await axiosInstance.get("/redeem").then((res) => res.data);
   },
-  getOne: async (id: number) => {
+  getOne: async (id: string) => {
     return await axiosInstance.get(`/redeem/${id}`).then((res) => res.data);
   },
   getByUserId: async (id: number) => {

@@ -5,38 +5,30 @@ import EmailIcon from "@/assets/svgs/email-icon.svg";
 import Button from "@/components/Button";
 import EagleCoins from "@/assets/images/eaglecoin 4.png";
 import { useProfile } from "@/hooks/useProfile";
-import ConfirmModal from "./ConfirmModal";
 import { useQuery } from "react-query";
 import { redeemService } from "@/services/redeem";
-// import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface RedeemDetailModalProps {
   isOpen: boolean;
-  onClose: () => void;
-  id: number;
 }
 
-const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
-  // const { id } = useParams();
+const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const { data: profile } = useProfile({ enabled: false });
   const { data: reedeemOne } = useQuery(["redeem", id], () =>
-    redeemService.getOne(id)
+    redeemService.getOne(id ?? "")
   );
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [counter, setCounter] = useState(1);
   const email = !profile?.profile.username.includes("@")
     ? `${profile?.profile.username}@test.com`
     : profile?.profile.username;
 
-  const openModal = () => {
-    setShowSuccessModal(true);
-    // onClose();
-  };
-
   if (!reedeemOne) return null;
   return (
     <>
-      <BaseModal isOpen={isOpen} onClose={onClose}>
+      <BaseModal isOpen={isOpen} onClose={() => navigate("/redeem")}>
         <div className="modal-body" key={reedeemOne?.id}>
           <div className="w-full bg-white flex"></div>
           <div className="p-6">
@@ -154,13 +146,17 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
               <div className="flex justify-center space-x-4">
                 <Button
                   className=" w-36  !py-2 !text-primary !bg-white !mt-4 rounded-full font-normal text-base border border-primary !normal-case"
-                  onClick={onClose}
+                  onClick={() => navigate(`/redeem`)}
                 >
                   Back
                 </Button>
                 <Button
                   className=" w-36  !py-2  !mt-4 rounded-full font-normal text-base border border-primary !normal-case"
-                  onClick={() => openModal()}
+                  onClick={() =>
+                    navigate(
+                      `/redeem/confirm/${reedeemOne?.id}?total=${counter}`
+                    )
+                  }
                   variant="primary"
                 >
                   Next
@@ -170,14 +166,6 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen, onClose, id }) => {
           </div>
         </div>
       </BaseModal>
-      {showSuccessModal && (
-        <ConfirmModal
-          isOpen={showSuccessModal}
-          onClose={() => setShowSuccessModal(false)}
-          id={id}
-          total={counter}
-        />
-      )}
     </>
   );
 };

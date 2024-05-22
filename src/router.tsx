@@ -17,6 +17,8 @@ import RedeemLayout from "./pages/(protected)/redeem/layout";
 import DetailsPage from "./pages/(protected)/tamboon/detailPage";
 import JoinActivityPage from "./pages/(protected)/tamboon/JoinPage";
 import RedeemDetail from "./pages/(protected)/redeem/components/RedeemModal";
+import ConfirmModal from "./pages/(protected)/redeem/components/ConfirmModal";
+import RedeemSuccessModal from "./pages/(protected)/redeem/components/SuccessModal";
 
 export const router = createBrowserRouter([
   {
@@ -98,6 +100,18 @@ export const router = createBrowserRouter([
               {
                 path: "",
                 Component: lazy(() => import("./pages/(protected)/redeem")),
+              },
+              {
+                path: "show/:id",
+                element: <RedeemDetail isOpen={true} />,
+              },
+              {
+                path: "confirm/:id",
+                element: <ConfirmModal isOpen={true} />,
+              },
+              {
+                path: "success/:id",
+                element: <RedeemSuccessModal isOpen={true} />,
               },
             ],
           },

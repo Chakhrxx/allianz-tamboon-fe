@@ -1,22 +1,15 @@
 import EagleCoins from "@/assets/images/eaglecoin 4.png";
 import Coupon from "@/assets/svgs/Coupon.svg";
 import { useProfile } from "@/hooks/useProfile";
-import RedeemModal from "./components/RedeemModal";
-import { useState } from "react";
 import { useQuery } from "react-query";
 import { redeemService } from "@/services/redeem";
+import { useNavigate } from "react-router-dom";
 function RedeemPage() {
-  const [showRedeemDetailModal, setShowRedeemDetailModal] = useState(false);
-  const [showId, setShowId] = useState<number>(0);
+  const navigate = useNavigate();
   const { data: profile } = useProfile({ enabled: false });
   const { data: reedeem } = useQuery(["reedeem", profile?.profile.id], () =>
     redeemService.getByUserId(profile?.profile.id ?? 0)
   );
-
-  const openModal = (id: number) => {
-    setShowRedeemDetailModal(true);
-    setShowId(id);
-  };
 
   if (!profile) return null;
   if (!reedeem) return null;
@@ -52,7 +45,10 @@ function RedeemPage() {
 
         <div className="grid grid-cols-2 gap-4 mb-4">
           {reedeem.map((item) => (
-            <div onClick={() => openModal(item?.id)} key={item?.id}>
+            <div
+              onClick={() => navigate(`/redeem/show/${item?.id}`)}
+              key={item?.id}
+            >
               <div className=" relative  my-2 rounded-2xl drop-shadow-2xl h-full ">
                 <div className=" relative">
                   <img
@@ -93,13 +89,6 @@ function RedeemPage() {
           ))}
         </div>
       </div>
-      {showRedeemDetailModal && (
-        <RedeemModal
-          id={showId}
-          isOpen={showRedeemDetailModal}
-          onClose={() => setShowRedeemDetailModal(false)}
-        />
-      )}
     </>
   );
 }

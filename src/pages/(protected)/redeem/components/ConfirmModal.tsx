@@ -5,7 +5,6 @@ import BaseModal from "@/components/BaseModal";
 import Button from "@/components/Button";
 // import EagleCoins from "@/assets/svgs/eagle-coin.svg";
 import { useProfile } from "@/hooks/useProfile";
-import SuccessModal from "./SuccessModal";
 import BxEdit from "@/assets/svgs/bx-edit.svg?react";
 import Avatar from "../../profile/components/Avatar";
 import { profileService } from "@/services/profile";
@@ -14,25 +13,23 @@ import ProfileSettingsModal from "../../profile/components/ProfileSettingModal";
 import { redeemService } from "@/services/redeem";
 import { useMutation, useQuery } from "react-query";
 import { requestRedeemService } from "@/services/request-redeem";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface ConfirmModalProps {
   isOpen: boolean;
-  onClose: () => void;
-  id: number;
-  total: number;
 }
 
-const ConfirmModal: FC<ConfirmModalProps> = ({
-  isOpen,
-  onClose,
-  id,
-  total,
-}) => {
+const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
+  const { id } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const total = searchParams.get("total");
+  const navigate = useNavigate();
   const { data: profile, refetch: refetchProfile } = useProfile({
     enabled: false,
   });
   const { data: reedeemOne } = useQuery(["redeem", id], () =>
-    redeemService.getOne(id)
+    redeemService.getOne(id ?? "")
   );
 
   const mutation = useMutation((data) => requestRedeemService.create(data));
@@ -42,7 +39,6 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
 
   const [showProfileSettingsModal, setShowProfileSettingsModal] =
     useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const email = !profile?.profile.username.includes("@")
     ? `${profile?.profile.username}@test.com`
@@ -52,7 +48,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
     const data = {
       userId: profile?.profile.id,
       redeemId: id,
-      total: total,
+      total: parseInt(total),
     };
     const request = await mutation.mutateAsync(data);
     console.log("request", request);
@@ -74,9 +70,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
       }),
     };
     await mutationNotify.mutateAsync(message);
-
-    setShowSuccessModal(true);
-    onClose;
+    navigate(`/redeem/success/${id}?counter=${total}`);
   };
   const handleFileUpload = async (file: File) => {
     await profileService.uploadProfileImage(file);
@@ -87,7 +81,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
   if (!reedeemOne) return null;
   return (
     <>
-      <BaseModal isOpen={isOpen} onClose={onClose}>
+      <BaseModal isOpen={isOpen} onClose={() => navigate("/redeem")}>
         <div className="modal-body" key={reedeemOne?.id}>
           <div className="p-4">
             <div className="space-y-3">
@@ -129,9 +123,10 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
                   {reedeemOne?.title}
                 </div>
                 <div className="text-center text-[#6A6A6A] font-normal">
-                  จำนวน {total} ชิ้น{"  "}
+                  จำนวน {parseInt(total)} ชิ้น{"  "}
                   <span className="text-[#EDA23D] font-normal">
-                    โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * total} เหรียญ
+                    โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * parseInt(total)}{" "}
+                    เหรียญ
                   </span>
                 </div>
               </div>
@@ -147,13 +142,13 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
               <div className="flex justify-center space-x-4 mt-4">
                 <Button
                   className=" w-24  !py-2 !text-primary !bg-white !my-4 rounded-full font-normal text-base border border-primary !normal-case"
-                  onClick={onClose}
+                  onClick={() => navigate(`/redeem/show/${id}`)}
                 >
                   Back
                 </Button>
                 <Button
                   className=" w-24  !py-2  !my-4 rounded-full font-normal text-base border border-primary !normal-case"
-                  onClick={() => openModal()}
+                  onClick={openModal}
                   variant="primary"
                 >
                   Confirm
@@ -168,14 +163,6 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
         onClose={() => setShowProfileSettingsModal(false)}
         onRefresh={refetchProfile}
       />
-      {showSuccessModal && (
-        <SuccessModal
-          isOpen={showSuccessModal}
-          onClose={() => setShowSuccessModal(false)}
-          id={id}
-          counter={total}
-        />
-      )}
     </>
   );
 };
