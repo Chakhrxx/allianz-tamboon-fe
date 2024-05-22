@@ -55,7 +55,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
 
     const message = {
       ...data,
-      type : "Redeem",
+      type: "Redeem",
       displayName: profile?.profile?.displayName,
       email: !profile?.profile.username.includes("@")
         ? `${profile?.profile.username}@test.com`

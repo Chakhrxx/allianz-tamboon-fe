@@ -43,8 +43,8 @@ function RedeemHistoryPage() {
 
   return (
     <>
-      <div className="relative z-10 text-center p-6 bg-white h-full rounded-t-[38px]">
-        <div className="relative rounded-3xl drop-shadow-md h-full">
+      <div className="relative z-10 text-center p-6 bg-white rounded-t-[38px] h-screen">
+        <div className="relative rounded-3xl drop-shadow-md ">
           <div className="relative z-10 flex items-start gap-4 ">
             <div>
               <Avatar
