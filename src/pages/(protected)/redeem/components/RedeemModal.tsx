@@ -42,8 +42,8 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                 />
                 <div className="flex  items-center justify-between my-4">
                   <div>
-                    <div className=" text-lg  text-[#5A4B43]">Expired</div>
-                    <div className=" font-normal text-sm  text-[#5A4B43]">
+                    <div className=" text-lg    ">Expired</div>
+                    <div className=" font-normal text-sm  text-[#546A87]  ">
                       {new Date(reedeemOne?.expiredDate).toLocaleDateString(
                         "th-TH",
                         {
@@ -75,10 +75,8 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                     </div>
                   </div>
                 </div>
-                <div className="text-[#5A4B43] font-bold pb-2">
-                  {reedeemOne?.title}
-                </div>
-                <div className="text-[#5A4B43] font-normal px-2">
+                <div className=" font-bold pb-2">{reedeemOne?.title}</div>
+                <div className=" font-normal px-2 text-[#546A87]">
                   {reedeemOne?.description}
                 </div>
               </div>
@@ -86,7 +84,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                 <div className=" font-normal py-2">กรุณากรอกอีเมลพนักงาน</div>
                 <div className="relative">
                   <input
-                    className="w-full border-b rounded-none border-gray-400 focus:border-primary focus:outline-none pl-9 text-[#6A6A6A] opacity-70 "
+                    className="w-full border-b rounded-none border-gray-400 focus:border-primary focus:outline-none pl-9   text-[#546A87]  "
                     type="text"
                     defaultValue={email}
                     readOnly
@@ -95,9 +93,9 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                     <img
                       src={EmailIcon}
                       alt="Email Icon"
-                      className="fill-current text-[#5A4B43] opacity-60"
+                      className="fill-current w-[20px]  opacity-60"
                     />
-                    <div className="fill-current text-[#5A4B43] px-1 font-bold opacity-60">
+                    <div className="fill-current   text-[#546A87]  px-1 font-bold ">
                       :
                     </div>
                   </span>
@@ -116,7 +114,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                 >
                   -
                 </button>
-                <div className="bg-[#E3E3E3] text-[#5A4B43] rounded-md text-base w-12  text-center">
+                <div className="bg-[#E3E3E3]  text-[#546A87 rounded-md text-base w-12  text-center">
                   {counter}
                 </div>
                 <button

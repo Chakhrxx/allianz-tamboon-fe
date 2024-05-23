@@ -68,12 +68,13 @@ function RedeemPage() {
                 </div>
 
                 <div className="relative bg-white px-3 py-2 h-[120px]">
-                  <p className="font-semibold text-sm text-left pb-2 text-black">
+                  <p className="font-semibold text-sm text-left pb-2 text-[#003781]">
                     {item?.title?.length > 40
                       ? `${item?.title.substring(0, 40)}...`
                       : item?.title}
                   </p>
-                  <p className=" text-xs text-left font-thin indent-4 text-black">
+
+                  <p className=" text-xs text-left  font-light indent-4 text-[#546A87]">
                     {item?.description?.length > 50
                       ? `${item?.description.substring(0, 50)}...`
                       : item?.description}

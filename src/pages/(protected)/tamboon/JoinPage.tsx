@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "../profile/components/Avatar";
 import BxEdit from "@/assets/svgs/bx-edit.svg?react";
-import UploadIcon from "@/assets/svgs/Upload.svg";
+import UploadIcon from "@/assets/images/upload-icon.png";
 import { useProfile } from "@/hooks/useProfile";
 import { queryClient } from "@/libs/query-client";
 import { profileService } from "@/services/profile";
@@ -146,11 +146,11 @@ function JoinActivityPage() {
                       className="py-2 max-h-[250px] object-contain"
                     />
                   ) : (
-                    <div className="bg-white h-[250px] w-full py-3 px-14 my-2 text-[#7C7C7C] flex flex-col items-center justify-center text-sm">
+                    <div className="bg-white h-[250px] w-full py-3 px-14 my-2 text-[#546A87] flex flex-col items-center justify-center align-middle text-sm">
                       <img
                         src={UploadIcon}
                         alt="Upload Icon"
-                        className="py-2"
+                        className="py-4 w-12 text-[#546A87]"
                       />
                       <p>อัพโหลดหลักฐานการเข้าร่วมกิจกรรม</p>
                     </div>
