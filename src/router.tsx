@@ -41,6 +41,16 @@ export const router = createBrowserRouter([
             ],
           },
           {
+            path: "/allianz-tamboon-fe",
+            element: <HomeLayout />,
+            children: [
+              {
+                path: "",
+                Component: lazy(() => import("./pages/(protected)/home")),
+              },
+            ],
+          },
+          {
             path: "/qrcode",
             element: <TownHallLayout />,
             children: [

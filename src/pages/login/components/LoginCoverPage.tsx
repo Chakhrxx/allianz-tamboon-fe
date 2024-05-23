@@ -1,5 +1,5 @@
 import BgMainImage from "@/assets/svgs/Tambbon-Login-bg.svg";
-import CoinAnimation from "@/assets/images/750-3D Coin Animation-V2.png";
+import CoinAnimation from "@/assets/images/410-3D+Coin+AnimationV2_10fps.png";
 
 type Props = {
   onClose: () => void;

@@ -1,0 +1,43 @@
+name: Deploy Api-Merit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: 🚀 Deploy Api to Dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get Latest Code
+        uses: actions/checkout@v3
+
+      - name: 🖥️ Set up Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: 📦 Install dependencies
+        run: bun install
+
+      - name: 💿 Build the app
+        run: bun run build
+
+      - name: 🔧 Configure SSH
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_DOMAIN }} > ~/.ssh/known_hosts
+
+      - name: 🗓️ Deploy to DigitalOcean
+        run: |
+          rsync -azP --delete -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_DOMAIN }}:~/app
+
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_DOMAIN }} 'bash -s' << EOF
+            cd ~/app
+            echo "${{ secrets.ENV_CONTENT }}" > .env
+            if pm2 list | grep -q "merit_app"; then
+              pm2 restart merit_app
+            else
+              pm2 serve dist 5173 --name merit_app -i max
+            fi
+          EOF
