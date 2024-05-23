@@ -11,7 +11,7 @@ function CSRLayout() {
           alt="Main background"
         />
 
-        <h1 className="relative text-white font-extrabold text-3xl text-center p-4">
+        <h1 className="relative text-white font-extrabold text-[28px] text-center py-4">
           Eagle coins
         </h1>
 

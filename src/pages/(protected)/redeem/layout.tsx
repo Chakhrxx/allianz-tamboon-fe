@@ -26,7 +26,7 @@ function RedeemLayout() {
           src={BgMainImage}
           alt="Main background"
         />
-        <h1 className="relative text-white font-extrabold text-[28px] text-center pt-4 pb-4">
+        <h1 className="relative text-white font-extrabold text-[28px] text-center py-4">
           Reward
         </h1>
 

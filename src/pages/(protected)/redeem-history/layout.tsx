@@ -27,16 +27,7 @@ function RedeemHistoryLayout() {
           src={BgMainImage}
           alt="Main background"
         />
-
-        <div className="flex justify-end relative">
-          <button
-            className="mt-2 mx-4 underline underline-offset-2 text-[15px] text-white"
-            onClick={() => setShowLogoutConfirmOverlay(true)}
-          >
-            Logout
-          </button>
-        </div>
-        <h1 className=" relative text-white font-extrabold text-[28px] text-center pb-4">
+        <h1 className="relative text-white font-extrabold text-[28px] text-center py-4">
           Redeem History
         </h1>
 
