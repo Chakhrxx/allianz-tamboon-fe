@@ -3,7 +3,7 @@ import TextField from "@/components/TextField";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import CoinAnimation from "@/assets/images/410-3D+Coin+AnimationV2_10fps.png";
+import CoinAnimation from "@/assets/images/250-3D Coin Animation-V2.png";
 import BgMainImage from "@/assets/svgs/Tambbon-Login-bg.svg";
 import UsernameIcon from "@/assets/svgs/profile.svg";
 import PasswordIcon from "@/assets/svgs/password-icon.svg";

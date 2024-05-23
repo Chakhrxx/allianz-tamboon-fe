@@ -10,6 +10,10 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
 
+    env: # Job level environment variables
+      NODE_ENV: production
+      VITE_API_URL: https://api-merit.azgame2024.com/
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -24,6 +28,8 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env: # Step level environment variable
+          BUILD_ENV: production
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
@@ -49,3 +55,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+        env: # Step level environment variable
+          DEPLOY_ENV: production
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          API_KEY_1: ${{ secrets.API_KEY_1 }}
+          VITE_API_URL: https://api-merit.azgame2024.com/
