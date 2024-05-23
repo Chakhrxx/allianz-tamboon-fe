@@ -79,12 +79,12 @@ function ProfilePage() {
             </div>
           </div>
           <div className="relative z-10 flex items-center justify-center gap-1 m-2 ">
-            <img className=" w-[85px]" src={EagleCoins} alt="Eagle Coin" />
+            <img className=" w-[50px]" src={EagleCoins} alt="Eagle Coin" />
             <div>
-              <div className="text-left font-extrabold text-[28px] text-[#EDA740] drop-shadow leading-none">
+              <div className="text-left font-medium  text-[22px] text-[#EDA740] drop-shadow leading-none">
                 {profile?.coins}
               </div>
-              <div className=" text-left text-[#EDA740] text-2xl font-medium leading-none">
+              <div className=" text-left text-[#EDA740] text-[18px] font-light leading-none">
                 {"Eagle coins"}
               </div>
             </div>

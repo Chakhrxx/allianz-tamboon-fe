@@ -35,7 +35,7 @@ function ProfileLayout() {
             Logout
           </button>
         </div>
-        <h1 className="relative text-white font-extrabold text-[28px] text-center pb-4">
+        <h1 className="relative text-white font-extrabold text-[28px] text-center pb-2">
           Account
         </h1>
 
