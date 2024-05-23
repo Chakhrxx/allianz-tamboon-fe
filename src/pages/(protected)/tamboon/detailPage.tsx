@@ -24,10 +24,10 @@ function DetailsPage() {
                 {tamboon?.activityName}
               </p>
               <img
-                className="w-full border border-collapse mb-2"
+                className="w-full border border-collapse mb-2 max-h-[200px]"
                 src={tamboon?.contentImage}
                 alt=""
-                style={{ height: "150px" }}
+                // style={{ height: "800px", width: "1280px" }}
               />
               <div className="text-left text-md font-bold mb-2 drop-shadow-sm">
                 {tamboon?.activityName}
