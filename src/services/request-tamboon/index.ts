@@ -9,7 +9,16 @@ export const requestTamboonService = {
       .get(`/request-tamboon/byUserId/${id}`)
       .then((res) => res.data);
   },
-  create: async (data) => {
+  getOne: async (id: string) => {
+    return await axiosInstance
+      .get(`/request-tamboon/${id}`)
+      .then((res) => res.data);
+  },
+  create: async (data: {
+    userId?: number;
+    tamboonId?: string;
+    uploadImage?: string;
+  }) => {
     return await axiosInstance
       .post("/request-tamboon", data)
       .then((res) => res.data);
@@ -18,7 +27,6 @@ export const requestTamboonService = {
     try {
       const formData = new FormData();
       formData.append("file", file);
-
       return await axiosInstance
         .post("/request-tamboon/uploadImg", formData, {
           headers: {

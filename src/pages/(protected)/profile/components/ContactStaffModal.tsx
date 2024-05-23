@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import SuccessModal from "./ContactStaffSucessModal";
 import { useMutation } from "react-query";
 import { requestContactStaffService } from "@/services/request-contact-staff";
+import { LineService } from "@/services/line";
 
 const validationSchema = yup.object().shape({
   detail: yup.string().trim().required(),
@@ -26,6 +27,17 @@ const ContactStaffModal: FC<ContactStaffModalProps> = ({ isOpen, onClose }) => {
     requestContactStaffService.create(data)
   );
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const mutationNotify = useMutation(
+    (message: {
+      userId?: number;
+      type?: string;
+      displayName?: string;
+      email?: string;
+      description?: string;
+      created?: string;
+    }) => LineService.sendNotify(message)
+  );
 
   const {
     formState: { isValid, isSubmitting },
@@ -50,7 +62,23 @@ const ContactStaffModal: FC<ContactStaffModalProps> = ({ isOpen, onClose }) => {
         : profile?.profile.username,
       detail: data.detail,
     };
-    await mutation.mutateAsync(requestData);
+
+    const response = await mutation.mutateAsync(requestData);
+    if (!response) return null;
+    const message = {
+      ...requestData,
+      displayName: profile?.profile?.displayName,
+      type: "Contact Staff",
+      description: response?.detail,
+      created: new Date(response.created).toLocaleDateString("th-TH", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
+    await mutationNotify.mutateAsync(message);
     setShowSuccessModal(true);
     onClose();
     reset();

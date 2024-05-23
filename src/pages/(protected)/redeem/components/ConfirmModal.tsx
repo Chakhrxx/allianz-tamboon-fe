@@ -14,6 +14,7 @@ import { redeemService } from "@/services/redeem";
 import { useMutation, useQuery } from "react-query";
 import { requestRedeemService } from "@/services/request-redeem";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { LineService } from "@/services/line";
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const total = searchParams.get("total");
+
   const navigate = useNavigate();
   const { data: profile, refetch: refetchProfile } = useProfile({
     enabled: false,
@@ -32,9 +34,23 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
     redeemService.getOne(id ?? "")
   );
 
-  const mutation = useMutation((data) => requestRedeemService.create(data));
-  const mutationNotify = useMutation((message) =>
-    requestRedeemService.sendNotify(message)
+  const mutation = useMutation(
+    (data: { userId?: number; redeemId?: string; total?: number }) =>
+      requestRedeemService.create(data)
+  );
+  const mutationNotify = useMutation(
+    (message: {
+      userId?: number;
+      redeemId?: string;
+      type?: number;
+      displayName?: string;
+      email?: string;
+      title?: string;
+      description?: string;
+      created?: string;
+      total?: number;
+      useCoins?: number;
+    }) => LineService.sendNotify(message)
   );
 
   const [showProfileSettingsModal, setShowProfileSettingsModal] =
@@ -44,6 +60,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
     ? `${profile?.profile.username}@test.com`
     : profile?.profile.username;
 
+  if (!total) return;
   const openModal = async () => {
     const data = {
       userId: profile?.profile.id,
@@ -51,8 +68,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
       total: parseInt(total),
     };
     const request = await mutation.mutateAsync(data);
-    console.log("request", request);
-
+    if (!request) return null;
     const message = {
       ...data,
       type: "Redeem",
@@ -69,7 +85,9 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
         hour: "2-digit",
         minute: "2-digit",
       }),
+      useCoins: request?.redeem?.coins * request?.total,
     };
+
     await mutationNotify.mutateAsync(message);
     navigate(`/redeem/success/${id}?counter=${total}`);
   };

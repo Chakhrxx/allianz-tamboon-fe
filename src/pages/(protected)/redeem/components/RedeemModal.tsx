@@ -20,12 +20,13 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
   const { data: reedeemOne } = useQuery(["redeem", id], () =>
     redeemService.getOne(id ?? "")
   );
-  const [counter, setCounter] = useState(1);
+  const [counter, setCounter] = useState<number>(1);
   const email = !profile?.profile.username.includes("@")
     ? `${profile?.profile.username}@test.com`
     : profile?.profile.username;
-
+  if (!profile) return null;
   if (!reedeemOne) return null;
+
   return (
     <>
       <BaseModal isOpen={isOpen} onClose={() => navigate("/redeem")}>
@@ -102,7 +103,7 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                   </span>
                 </div>
               </div>
-              <div className="flex justify-center space-x-2 py-3">
+              <div className="flex justify-center space-x-2 pt-3">
                 <button
                   onClick={() => {
                     if (counter > 1) {
@@ -120,7 +121,10 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                 </div>
                 <button
                   onClick={() => {
-                    if (profile?.coins > counter * reedeemOne?.coins) {
+                    if (
+                      counter < reedeemOne?.total &&
+                      profile?.coins > counter * reedeemOne?.coins
+                    ) {
                       setCounter(counter + 1);
                       console.log("Total Coins", counter * reedeemOne?.coins);
                       console.log("My Coins", profile?.coins);
@@ -135,14 +139,22 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                 >
                   +
                 </button>
-                {/* 
-                <button
-                  onClick={() => setCounter(counter + 1)}
-                  className="bg-primary text-white px-2 rounded-md text-base"
-                >
-                  +
-                </button> */}
               </div>
+              <div className="flex justify-center space-x-2">
+                {profile?.coins < counter * reedeemOne?.coins ? (
+                  <div className="text-red-400">
+                    Sorry, Your coins is not enough.
+                  </div>
+                ) : counter >= reedeemOne?.total &&
+                  profile?.coins > counter * reedeemOne?.coins ? (
+                  <div className="text-primary">
+                    Sorry, there are not enough rewards.
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+
               <div className="flex justify-center space-x-4">
                 <Button
                   className=" w-36  !py-2 !text-primary !bg-white !mt-4 rounded-full font-normal text-base border border-primary !normal-case"
@@ -150,17 +162,21 @@ const RedeemDetail: FC<RedeemDetailModalProps> = ({ isOpen }) => {
                 >
                   Back
                 </Button>
-                <Button
-                  className=" w-36  !py-2  !mt-4 rounded-full font-normal text-base border border-primary !normal-case"
-                  onClick={() =>
-                    navigate(
-                      `/redeem/confirm/${reedeemOne?.id}?total=${counter}`
-                    )
-                  }
-                  variant="primary"
-                >
-                  Next
-                </Button>
+                {profile?.coins > counter * reedeemOne?.coins && (
+                  <Button
+                    className=" w-36  !py-2  !mt-4 rounded-full font-normal text-base border border-primary !normal-case"
+                    onClick={() => {
+                      if (profile?.coins > counter * reedeemOne?.coins) {
+                        navigate(
+                          `/redeem/confirm/${reedeemOne?.id}?total=${counter}`
+                        );
+                      }
+                    }}
+                    variant="primary"
+                  >
+                    Next
+                  </Button>
+                )}
               </div>
             </div>
           </div>

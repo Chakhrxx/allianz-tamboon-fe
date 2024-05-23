@@ -5,7 +5,7 @@ import Avatar from "./components/Avatar";
 import BxEdit from "@/assets/svgs/bx-edit.svg?react";
 import EagleCoins from "@/assets/images/eaglecoin 4.png";
 import RedeemTicket from "@/assets/svgs/redeem-ticket.svg";
-import ContactStaff from "@/assets/svgs/customer-service.svg";
+import ContactStaff from "@/assets/images/customer-service.png";
 import ProfileSettingsModal from "./components/ProfileSettingModal";
 import ContactStaffModal from "./components/ContactStaffModal";
 import { queryClient } from "@/libs/query-client";
@@ -97,7 +97,11 @@ function ProfilePage() {
 
           <div className=" flex justify-end p-4 ">
             <div onClick={() => setShowContactStaffModal(true)}>
-              <img className="mx-auto" src={ContactStaff} alt="Contact staff" />
+              <img
+                className="mx-auto w-9"
+                src={ContactStaff}
+                alt="Contact staff"
+              />
               <div className=" text-xs font-bold">{"Contact staff"}</div>
             </div>
           </div>

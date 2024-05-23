@@ -1,5 +1,4 @@
 import EagleCoins from "@/assets/images/eaglecoin 4.png";
-import Coupon from "@/assets/svgs/Coupon.svg";
 import { useProfile } from "@/hooks/useProfile";
 import { useQuery } from "react-query";
 import { redeemService } from "@/services/redeem";
@@ -7,26 +6,27 @@ import { useNavigate } from "react-router-dom";
 function RedeemPage() {
   const navigate = useNavigate();
   const { data: profile } = useProfile({ enabled: false });
-  const { data: reedeem } = useQuery(["reedeem", profile?.profile.id], () =>
+  const { data: redeem } = useQuery(["redeem", profile?.profile.id], () =>
     redeemService.getByUserId(profile?.profile.id ?? 0)
   );
 
   if (!profile) return null;
-  if (!reedeem) return null;
+  if (!redeem) return null;
+  const latest = redeem[redeem.length - 1];
 
   return (
     <>
       <div className="relative z-10 text-center p-6 bg-white rounded-t-[38px]">
         <div className=" relative">
           <img
-            src={Coupon}
+            src={latest?.coverImage}
             alt=""
             className="w-full h-[210px] object-cover mx-auto rounded-2xl"
           />
           <div className=" absolute flex bottom-0 right-0 rounded-tl-xl bg-[#FAEDA2] drop-shadow-2xl px-6 py-1 items-center h-[46px]">
             <img src={EagleCoins} alt="" className="w-10" />
             <div className="text-[#EDA23D] drop-shadow-sm font-semibold text-xl leading-none">
-              350
+              {latest?.coins}
               <p className="text-[#EDA23D] font-extralight text-sm drop-shadow-sm leading-none">
                 eagle coins
               </p>
@@ -44,7 +44,7 @@ function RedeemPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-4">
-          {reedeem.map((item) => (
+          {redeem.map((item) => (
             <div
               onClick={() => navigate(`/redeem/show/${item?.id}`)}
               key={item?.id}

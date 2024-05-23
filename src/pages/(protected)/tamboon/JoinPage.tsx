@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "../profile/components/Avatar";
 import BxEdit from "@/assets/svgs/bx-edit.svg?react";
@@ -11,11 +11,14 @@ import SuccessModal from "./components/SuccessModal";
 import { useMutation, useQuery } from "react-query";
 import { tamboonService } from "@/services/tamboon";
 import { requestTamboonService } from "@/services/request-tamboon";
+import ImgCrop from "antd-img-crop";
+import { Upload } from "antd";
+import type { UploadProps, GetProp } from "antd";
 
 function JoinActivityPage() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [counter, setCounter] = useState(1);
 
   const [showProfileSettingsModal, setShowProfileSettingsModal] =
     useState(false);
@@ -27,7 +30,10 @@ function JoinActivityPage() {
   const { data: tamboon } = useQuery(["tamboon", id], () =>
     tamboonService.getOne(Number(id))
   );
-  const mutation = useMutation((data) => requestTamboonService.create(data));
+  const mutation = useMutation(
+    (data: { userId?: number; tamboonId?: string; uploadImage?: string }) =>
+      requestTamboonService.create(data)
+  );
   const mutationUploadImg = useMutation((file: File) =>
     requestTamboonService.uploadImg(file)
   );
@@ -42,38 +48,15 @@ function JoinActivityPage() {
     queryClient.invalidateQueries("profile");
   };
 
-  const handleClick = () => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
-  };
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (target.files) {
-      if (imageUrl !== "") {
-        const filename = imageUrl.split("/").pop();
-        if (!filename) return;
-        await mutationDeleteImg.mutateAsync(filename.split("?")[0]);
-      }
-      const file = target.files[0];
-      const url = await mutationUploadImg.mutateAsync(file);
-
-      setImageUrl(url);
-    }
-  };
-
   const sendRequestTamboon = async () => {
     const data: {
       userId?: number;
       tamboonId?: string;
       uploadImage?: string;
-    } = {
-      userId: profile?.profile?.id,
-      tamboonId: id,
-    };
+    } = {};
     if (imageUrl !== "") {
-      data.uploadImage = imageUrl;
+      data.userId = profile?.profile?.id;
+      (data.tamboonId = id), (data.uploadImage = imageUrl);
       try {
         const requestTamboon = await mutation.mutateAsync(data);
         setShowSuccessModal(true);
@@ -82,6 +65,31 @@ function JoinActivityPage() {
         console.error("Error creating request Tamboon:", error);
       }
     }
+  };
+
+  type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
+  const props: UploadProps = {
+    name: "file",
+    action: undefined,
+    showUploadList: false,
+    accept: ".png,.jpg,.jpeg",
+    onChange: async (info) => {
+      const count = counter + 1;
+      setCounter(count);
+      const file = info.file.originFileObj as FileType;
+      if (counter === 2 && file) {
+        if (file) {
+          if (imageUrl !== "") {
+            const filename = imageUrl.split("/").pop();
+            if (!filename) return;
+            await mutationDeleteImg.mutateAsync(filename.split("?")[0]);
+          }
+          const url = await mutationUploadImg.mutateAsync(file);
+          setImageUrl(url);
+          setCounter(1);
+        }
+      }
+    },
   };
 
   if (!profile) return null;
@@ -113,9 +121,9 @@ function JoinActivityPage() {
             </div>
           </div>
         </div>
-        <div className="relative  bg-[#ECF4F6] rounded-3xl drop-shadow-sm h-full mx-2">
+        <div className="relative bg-[#ECF4F6] rounded-3xl drop-shadow-sm h-full mx-2">
           <div
-            className=" shadow-md  rounded-2xl w-full text-left px-8 py-4"
+            className="shadow-md rounded-2xl w-full text-left px-8 py-4"
             key={tamboon?.id}
           >
             <div className="relative z-10 text-center">
@@ -125,42 +133,44 @@ function JoinActivityPage() {
               <p className="text-left font-medium text-sm mb-2 drop-shadow-sm">
                 {tamboon?.description}
               </p>
-              <p className="text-lg  font-medium mb-2 drop-shadow-sm">
+              <p className="text-lg font-medium mb-2 drop-shadow-sm">
                 {"หลักฐานการทำความดี"}
               </p>
-              <div
-                className="bg-white w-full h-64 relative mb-4 text-[#7C7C7C] items-center text-sm flex flex-col justify-center gap-8"
-                onClick={handleClick}
-              >
-                {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt="Uploaded Image"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <>
-                    <img src={UploadIcon} alt="" />
-                    <p>อัพโหลดหลักฐานการเข้าร่วมกิจกรรม</p>
-                  </>
-                )}
-                <input
-                  type="file"
-                  ref={inputRef}
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                />
-              </div>
 
-              <div className=" flex text-left font-bold text-sm mt-2 gap-1">
-                Activity :{" "}
-                <p className=" font-normal"> {tamboon?.activityName}</p>
+              <ImgCrop
+                showGrid
+                rotationSlider
+                aspectSlider
+                showReset
+                aspect={4 / 3}
+              >
+                <Upload {...props}>
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt="Uploaded Image"
+                      className="py-2 max-h-[250px] object-contain"
+                    />
+                  ) : (
+                    <div className="bg-white h-[250px] w-full py-3 px-14 my-2 text-[#7C7C7C] flex flex-col items-center justify-center text-sm">
+                      <img
+                        src={UploadIcon}
+                        alt="Upload Icon"
+                        className="py-2"
+                      />
+                      <p>อัพโหลดหลักฐานการเข้าร่วมกิจกรรม</p>
+                    </div>
+                  )}
+                </Upload>
+              </ImgCrop>
+
+              <div className="flex text-left font-bold text-sm mt-2 gap-1">
+                Activity:
+                <p className="font-normal">{tamboon?.activityName}</p>
               </div>
-              <div className=" flex text-left font-bold text-sm mt-2 gap-1">
-                Date :{" "}
-                <p className=" font-normal">
-                  {" "}
+              <div className="flex text-left font-bold text-sm mt-2 gap-1">
+                Date:
+                <p className="font-normal">
                   {new Date(tamboon?.expiredDate).toLocaleDateString("th-TH", {
                     year: "numeric",
                     month: "2-digit",
@@ -173,6 +183,7 @@ function JoinActivityPage() {
             </div>
           </div>
         </div>
+
         <div className="relative space-x-4 items-center my-6">
           <button
             className="bg-white py-2 px-6 rounded-full border border-1 border-primary text-sm"

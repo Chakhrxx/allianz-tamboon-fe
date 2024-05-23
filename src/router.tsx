@@ -19,6 +19,7 @@ import JoinActivityPage from "./pages/(protected)/tamboon/JoinPage";
 import RedeemDetail from "./pages/(protected)/redeem/components/RedeemModal";
 import ConfirmModal from "./pages/(protected)/redeem/components/ConfirmModal";
 import RedeemSuccessModal from "./pages/(protected)/redeem/components/SuccessModal";
+import TamboonHistory from "./pages/(protected)/tamboon/TamboonHistory";
 
 export const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
               {
                 path: "join/:id",
                 element: <JoinActivityPage />,
+              },
+              {
+                path: "history/:id",
+                element: <TamboonHistory />,
               },
             ],
           },
