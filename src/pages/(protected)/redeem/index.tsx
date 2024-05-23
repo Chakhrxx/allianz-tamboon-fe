@@ -7,7 +7,7 @@ function RedeemPage() {
   const navigate = useNavigate();
   const { data: profile } = useProfile({ enabled: false });
   const { data: redeem } = useQuery(["redeem", profile?.profile.id], () =>
-    redeemService.getByUserId(profile?.profile.id ?? 0)
+    redeemService.getAll()
   );
 
   if (!profile) return null;

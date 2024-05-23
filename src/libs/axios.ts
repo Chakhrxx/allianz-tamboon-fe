@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? "http://159.223.44.23:3000",
+  baseURL: import.meta.env.VITE_API_URL ?? "https://api-merit.azgame2024.com/",
 });
 
 axiosInstance.interceptors.request.use((config) => {

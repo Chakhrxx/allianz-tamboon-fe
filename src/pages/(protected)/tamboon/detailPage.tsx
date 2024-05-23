@@ -40,13 +40,13 @@ function DetailsPage() {
                 รายละเอียดกิจกรรม :{" "}
               </p>
               <Link className="text-left  text-sm underline" to={tamboon?.link}>
-                <div className="text-left  text-sm text-[#0066DE] indent-4 break-words overflow-hidden prose">
+                <div className="text-left text-sm text-[#0066DE] indent-4 break-words overflow-hidden prose">
                   {tamboon?.link}
                 </div>
               </Link>
 
               <iframe
-                className="my-2 w-full"
+                className="my-4 w-full"
                 height="210"
                 src={
                   tamboon?.linkVideo.split("watch?v=").length != 1
