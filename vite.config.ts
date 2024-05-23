@@ -11,5 +11,5 @@ export default defineConfig({
       "@": "/src",
     },
   },
-  // base: "/allianz-tamboon-fe",
+  base: "/allianz-tamboon-fe",
 });
