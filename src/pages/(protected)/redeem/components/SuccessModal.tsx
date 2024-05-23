@@ -31,18 +31,18 @@ const RedeemSuccessModal: FC<ContactStaffModalProps> = ({ isOpen }) => {
               alt=""
               className=" rounded-2xl"
             />
-            <div className=" font-normal text-[#555555]">
+            <div className=" font-normal text-[#546A87]">
               รายการของเเลกของรางวัลของคุณอนุมัติเรียบร้อย !
             </div>
             <div className="font-normal">{reedeemOne?.title}</div>
-            <div className="text-center text-[#6A6A6A] font-normal">
+            <div className="text-center text-[#546A87] font-normal">
               จำนวน {counter} ชิ้น
             </div>
             <div className="text-[#EDA23D] font-normal">
               โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * parseInt(counter)} เหรียญ
             </div>
             <Button
-              className="mx-auto !py-3  text-white !mt-6 font-normal !text-lg rounded-full"
+              className="mx-auto !py-2  text-white !mt-6 font-normal !text-lg rounded-full"
               onClick={() => {
                 navigate("/redeem");
               }}

@@ -135,13 +135,13 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
                   alt="Image Label"
                   className="w-full rounded-xl"
                 />
-                <div className="text-[#6A6A6A] font-normal  text-center pt-5 ">
+                <div className="text-[#546A87] font-normal  text-center pt-5 ">
                   คุณต้องการแลก
                 </div>
                 <div className=" font-normal pb-1 text-center pt-2 text-primary">
                   {reedeemOne?.title}
                 </div>
-                <div className="text-center text-[#6A6A6A] font-normal">
+                <div className="text-center text-[#546A87] font-normal">
                   จำนวน {parseInt(total)} ชิ้น{"  "}
                   <span className="text-[#EDA23D] font-normal">
                     โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * parseInt(total)}{" "}
@@ -151,10 +151,12 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
               </div>
 
               <div className="px-6 py-6">
-                <div className="  font-normal text-[#6A6A6A] text-center">
+                <div className="  font-normal  text-center">
                   โดยทางเจ้าหน้าที่จะติดต่อกลับทาง
                   <br />
-                  <p className=" font-normal text-primary underline">{email}</p>
+                  <p className=" font-normal text-[#546A87] underline">
+                    {email}
+                  </p>
                 </div>
               </div>
 

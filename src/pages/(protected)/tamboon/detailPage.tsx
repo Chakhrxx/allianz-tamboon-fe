@@ -13,10 +13,10 @@ function DetailsPage() {
   if (!tamboon) return null;
   return (
     <>
-      <div className="relative  text-center p-6 bg-white rounded-t-[38px]">
+      <div className="relative  text-center bg-white rounded-t-[38px]">
         <div className="relative  bg-[#ECF4F6] rounded-3xl drop-shadow-sm h-full">
           <div
-            className=" shadow-md  rounded-2xl w-full text-left px-10 py-4"
+            className=" shadow-md  rounded-2xl w-full text-left px-8 py-4"
             key={tamboon?.id}
           >
             <div className="relative z-10 text-center">
