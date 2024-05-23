@@ -137,13 +137,7 @@ function JoinActivityPage() {
                 {"หลักฐานการทำความดี"}
               </p>
 
-              <ImgCrop
-                showGrid
-                rotationSlider
-                aspectSlider
-                showReset
-                aspect={4 / 3}
-              >
+              <ImgCrop showGrid zoomSlider={false} maxZoom={1}>
                 <Upload {...props}>
                   {imageUrl ? (
                     <img
