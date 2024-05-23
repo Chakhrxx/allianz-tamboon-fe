@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { redeemService } from "@/services/redeem";
+import SuccesssIcon from "@/assets/svgs/upload-success.svg";
 
 interface ContactStaffModalProps {
   isOpen: boolean;
@@ -24,23 +25,15 @@ const RedeemSuccessModal: FC<ContactStaffModalProps> = ({ isOpen }) => {
         <div className="w-full bg-white flex"></div>
 
         <div className="p-8" key={reedeemOne?.id}>
-          <div className="text-center space-y-4">
-            <div className=" font-normal  text-3xl">Your coins is Return</div>
-            <img
-              src={reedeemOne?.contentImage}
-              alt=""
-              className=" rounded-2xl"
-            />
-            <div className=" font-normal text-[#546A87]">
-              รายการของเเลกของรางวัลของคุณอนุมัติเรียบร้อย !
+          <div className="text-center space-y-6">
+            <div className=" font-normal  text-3xl">Successfully !</div>
+            <img src={SuccesssIcon} alt="" className=" mx-auto w-32" />
+
+            <div className="font-normal">
+              The assigned coordinator will keep you posted on the outcome
+              thereafter.
             </div>
-            <div className="font-normal">{reedeemOne?.title}</div>
-            <div className="text-center text-[#546A87] font-normal">
-              จำนวน {counter} ชิ้น
-            </div>
-            <div className="text-[#EDA23D] font-normal">
-              โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * parseInt(counter)} เหรียญ
-            </div>
+
             <Button
               className="mx-auto !py-2  text-white !mt-6 font-normal !text-lg rounded-full"
               onClick={() => {
