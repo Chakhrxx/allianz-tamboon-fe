@@ -135,18 +135,18 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ isOpen }) => {
                   alt="Image Label"
                   className="w-full rounded-xl"
                 />
-                <div className="text-[#546A87] font-normal  text-center pt-5 ">
+                <div className=" font-semibold  text-center pt-5">
                   คุณต้องการแลก
                 </div>
-                <div className=" font-normal pb-1 text-center pt-2 text-primary">
+                <div className=" font-normal pb-3 text-center pt-2 text-primary">
                   {reedeemOne?.title}
                 </div>
-                <div className="text-center text-[#546A87] font-normal">
+                <div className="text-center  font-normal">
                   จำนวน {parseInt(total)} ชิ้น{"  "}
-                  <span className="text-[#EDA23D] font-normal">
-                    โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * parseInt(total)}{" "}
-                    เหรียญ
-                  </span>
+                </div>
+                <div className="text-[#EDA23D] font-normal text-center">
+                  โดยใช้เหรียญทั้งหมด {reedeemOne?.coins * parseInt(total)}{" "}
+                  เหรียญ
                 </div>
               </div>
 

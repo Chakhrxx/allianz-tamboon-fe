@@ -27,15 +27,17 @@ function ProfileLayout() {
           src={BgMainImage}
           alt="Main background"
         />
-        <div className="flex justify-end relative mb-0">
+        <div className="flex justify-end relative">
           <button
-            className="absolute mt-2 mx-4 underline underline-offset-2 text-[15px] text-white"
+            className="mr-4 underline underline-offset-2 text-[15px] text-white relative"
+            style={{ padding: "10px 20px" }} // added padding for easier clicking
             onClick={() => setShowLogoutConfirmOverlay(true)}
           >
             Logout
           </button>
         </div>
-        <h1 className="relative text-white font-extrabold text-[28px] text-center py-4">
+
+        <h1 className="relative text-white font-extrabold text-[28px] text-center pb-4">
           Account
         </h1>
 
